@@ -1,0 +1,8 @@
+# *
+User-agent: *
+
+# Host
+Host: https://mirzamurod.uz
+
+# Sitemaps
+Sitemap: https://mirzamurod.uz/sitemap.xml
