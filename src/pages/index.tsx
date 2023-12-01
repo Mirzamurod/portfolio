@@ -31,7 +31,12 @@ export default function Home({
         />
         <link rel='apple-touch-icon' href='./images/logo.png' />
         {process.env.NODE_ENV === 'production' && (
-          <script dangerouslySetInnerHTML={{ __html: process.env.GOOGLE_TAG_MANAGER_HEAD! }} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html:
+                '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXC85K4K" height="0" width="0" style="display:none;visibility:hidden"></iframe>',
+            }}
+          />
         )}
       </Head>
       <Main projects={projects} experiences={experiences} />
