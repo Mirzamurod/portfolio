@@ -36,7 +36,7 @@ const Resume = ({ experiences }: { experiences: TExperience[] }) => {
   return (
     <div id='resume'>
       <Container>
-        <Title subtitle={'0+ years of experience'} title={'my resume'} center />
+        <Title subtitle={'1+ years of experience'} title={'my resume'} center />
         <Row className='color-white text-center box-shadow bg-color-1 borr-10 mt-xl-5 mt-lg-5 mt-md-4 '>
           {nmadr.map(nma => (
             <Col md={4} className='px-0' key={nma.shortName}>
