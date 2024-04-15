@@ -390,6 +390,10 @@ body {
   @include mask('/images/linkedin.svg');
 }
 
+.github {
+  @include mask('/images/github-mark-white.svg');
+}
+
 .scroll_navbar {
   position: sticky !important;
   top: 0;

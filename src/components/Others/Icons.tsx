@@ -5,6 +5,7 @@ const Icons = (props: any) => {
     telegram: 'https://t.me/MaSTeR_R_M',
     linkedin:
       'https://www.linkedin.com/in/mirzamurod-rahimberdiyev-56a936229?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bc4a3902bTlKpjNmXE5UP2w%3D%3D',
+    github: 'https://github.com/Mirzamurod',
   }
 
   return (
@@ -22,17 +23,17 @@ const Icons = (props: any) => {
       </div>
       <div className={`d-flex ${props.contact ? 'mb-1' : 'mb-4'}`}>
         <div className='m-10-12 me-2'>
-          <a href={others?.facebook}>
+          <a href={others?.github}>
             <div
               className={`${
                 props.sidebar ? 'w-h-51' : 'w-h-60 box-shadow'
               } bg-color-1 text-center ${props.sidebar ? 'pt-3' : 'pt-xl-20'}`}
             >
-              <span className={`${props.sidebar ? 'icon-size' : ''} icon facebook`} />
+              <span className={`${props.sidebar ? 'icon-size' : ''} icon github`} />
             </div>
           </a>
         </div>
-        <div className='m-10-12 mx-2'>
+        {/* <div className='m-10-12 mx-2'>
           <a href={others?.instagram}>
             <div
               className={`${
@@ -42,7 +43,7 @@ const Icons = (props: any) => {
               <span className={`${props.sidebar ? 'icon-size' : ''} icon instagram`} />
             </div>
           </a>
-        </div>
+        </div> */}
         <div className='m-10-12 mx-2'>
           <a href={others?.telegram}>
             <div
