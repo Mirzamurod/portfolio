@@ -10,8 +10,8 @@ const Footer = () => {
         </Col>
         <Col className='text-center'>
           <p>
-            &copy; 2023. All rights reserved by
-            <Link url='https://t.me/MaSTeR_R_M' words={'Mirzamurod.'} />
+            &copy; 2024. All rights reserved by
+            <Link url='https://t.me/mirzamurod_dev' words={'Mirzamurod.'} />
           </p>
         </Col>
       </Row>
