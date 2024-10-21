@@ -11,7 +11,7 @@ const Experience = ({ experiences }: { experiences: TExperience[] }) => {
             <div className='time-line ps-lg-5 ps-4 ps-sm-5 pt-5 pe-2'>
               {experiences.map((item, index) =>
                 index < Math.ceil(experiences.length / 2) ? (
-                  <div className='mb-5' data-aos='flip-up' key={index}>
+                  <div className='mb-5' data-aos='flip-up' key={item._id}>
                     <ResumeCart h4={item.name} years={item.year} text={item.description} />
                   </div>
                 ) : null
@@ -22,7 +22,7 @@ const Experience = ({ experiences }: { experiences: TExperience[] }) => {
             <div className='time-line ps-lg-5 ps-4 ps-sm-5 pt-lg-5 pe-2'>
               {experiences.map((item, index) =>
                 index >= Math.ceil(experiences.length / 2) ? (
-                  <div className='mb-5' data-aos='flip-up' key={index}>
+                  <div className='mb-5' data-aos='flip-up' key={item._id}>
                     <ResumeCart h4={item.name} years={item.year} text={item.description} />
                   </div>
                 ) : null

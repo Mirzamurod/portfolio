@@ -1,26 +1,61 @@
 import { useEffect, useState } from 'react'
 import { Card, CardBody, Col, Container, Row } from 'reactstrap'
+import axios from 'axios'
 import { Title } from '@/components/Title'
 import { Heart } from '@/components/Others/Heart'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import ProjectModal from '@/components/Projects/ProjectModal'
 import { TProject } from '@/types/project'
-import { addLike } from '@/services'
+import Loader from '@/components/Projects/Loader'
 
-const Project = ({ projects }: { projects: TProject[] }) => {
+const Project = () => {
   const [modal, setModal] = useState(false)
+  const [loading, setLoading] = useState(false)
   let [data, setData] = useState<TProject | null>(null)
+  const [projects, setProjects] = useState<TProject[]>([])
+
   const modalBtn = () => setModal(!modal)
+
+  const getProducts = async () => {
+    axios
+      .get('/api/projects')
+      .then(res => {
+        setProjects(res.data)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.log(error.message)
+        setLoading(false)
+      })
+  }
 
   useEffect(() => {
     document.body.style.overflow = modal ? 'hidden' : ''
   }, [modal])
 
-  const add_like = (project: TProject) => {
-    console.log(project.id)
-    addLike({ like: ++project.like, id: project.id })
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+  useEffect(() => {
+    setLoading(true)
+
+    getProducts()
+  }, [])
+
+  const add_like = async (project: TProject) => {
+    await axios({
+      method: 'patch',
+      url: '/api/edit-project',
+      data: { id: project._id, like: Number(project.like) + 1 },
+    })
+      .then(() => {
+        let data: TProject[] = []
+        projects.map(item =>
+          item._id === project._id
+            ? data.push({ ...item, like: Number(project.like) + 1 })
+            : data.push(item)
+        )
+        setProjects([...data])
+        getProducts()
+      })
+      .catch(error => console.log(error))
   }
 
   return (
@@ -32,55 +67,61 @@ const Project = ({ projects }: { projects: TProject[] }) => {
           center
         />
         <Row>
-          {projects.map((project: TProject, index: number) => (
-            <Col
-              md='6'
-              xl='4'
-              key={project.id}
-              className='px-xl-25 py-4'
-              data-aos={`${index % 2 === 0 ? 'fade-up' : 'fade-down'}`}
-              data-aos-delay={`${index + '00'}`}
-            >
-              <div className='h-100'>
-                <div
-                  className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-5 borr-20 hover-card h-100'
-                  onClick={() => setData(project)}
+          {loading
+            ? [...new Array(3)].map((_, index) => (
+                <Col md='6' xl='4' key={index} className='px-xl-25 py-4'>
+                  <Loader />
+                </Col>
+              ))
+            : projects.map((project: TProject, index: number) => (
+                <Col
+                  md='6'
+                  xl='4'
+                  key={project._id}
+                  className='px-xl-25 py-4'
+                  data-aos={`${index % 2 === 0 ? 'fade-up' : 'fade-down'}`}
+                  data-aos-delay={`${index + '00'}`}
                 >
-                  <Card className='bg-transparent border-0 h-100'>
-                    <div className='w-100 overflow-hidden mx-auto borr-10'>
-                      <LazyLoadImage
-                        effect='blur'
-                        // top
-                        width='100%'
-                        height='250px'
-                        src={project.image.url}
-                        alt='Card image cap1'
-                        style={{ objectFit: 'cover' }}
-                      />
+                  <div className='h-100'>
+                    <div
+                      className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-5 borr-20 hover-card h-100'
+                      onClick={() => setData(project)}
+                    >
+                      <Card className='bg-transparent border-0 h-100'>
+                        <div className='w-100 overflow-hidden mx-auto borr-10'>
+                          <LazyLoadImage
+                            effect='blur'
+                            // top
+                            width='100%'
+                            height='250px'
+                            src={project.image}
+                            alt='Card image cap1'
+                            style={{ objectFit: 'cover' }}
+                          />
+                        </div>
+                        <CardBody className='p-0'>
+                          <div className='d-flex my-3 justify-content-between'>
+                            <a
+                              href={project.url}
+                              className='color-primary text-decoration-none p-medium font-primary fs-xl-12 text-uppercase'
+                            >
+                              {project.featured}
+                            </a>
+                            <div onClick={() => add_like(project)}>
+                              <Heart rating={project.like} />
+                            </div>
+                          </div>
+                          <div className='hover-commet' onClick={modalBtn}>
+                            <div className='fs-xl-24 fs-md-24 color-lightn p-semi-bold cursor-pointer text-decoration-none'>
+                              {project.name}
+                            </div>
+                          </div>
+                        </CardBody>
+                      </Card>
                     </div>
-                    <CardBody className='p-0'>
-                      <div className='d-flex my-3 justify-content-between'>
-                        <a
-                          href={project.url}
-                          className='color-primary text-decoration-none p-medium font-primary fs-xl-12 text-uppercase'
-                        >
-                          {project.featured}
-                        </a>
-                        <div onClick={() => add_like(project)}>
-                          <Heart rating={project.like} />
-                        </div>
-                      </div>
-                      <div className='hover-commet' onClick={modalBtn}>
-                        <div className='fs-xl-24 fs-md-24 color-lightn p-semi-bold cursor-pointer text-decoration-none'>
-                          {project.name}
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
-                </div>
-              </div>
-            </Col>
-          ))}
+                  </div>
+                </Col>
+              ))}
         </Row>
         {modal ? (
           <div

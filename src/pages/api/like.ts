@@ -17,7 +17,6 @@ export default async function like(req: NextApiRequest, res: NextApiResponse) {
       }
     }
   `
-  console.log(req.body)
 
   try {
     const result = await graphQLClient.request(query, req.body)

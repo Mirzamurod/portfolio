@@ -2,9 +2,9 @@ export type TProject = {
   createdAt: string
   description: string
   featured: string
-  id: string
-  image: { url: string }
-  like: 4
+  _id: string
+  image: string
+  like: number
   name: string
   url: string
 }

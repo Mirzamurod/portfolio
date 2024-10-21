@@ -2,6 +2,6 @@ export type TExperience = {
   createdAt: string
   description: string
   year: string
-  id: string
+  _id: string
   name: string
 }

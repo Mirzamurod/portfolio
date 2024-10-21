@@ -7,10 +7,8 @@ import { Hr } from '@/components/Hr'
 import Footer from '@/components/Footer'
 // @ts-ignore
 import ProgressBar from 'react-scroll-progress-bar'
-import { TProject } from '@/types/project'
-import { TExperience } from '@/types/experience'
 
-const Main = ({ projects, experiences }: { projects: TProject[]; experiences: TExperience[] }) => {
+const Main = () => {
   return (
     <div>
       <ProgressBar />
@@ -19,9 +17,9 @@ const Main = ({ projects, experiences }: { projects: TProject[]; experiences: TE
       {/* <Hr />
         <WhatIDo /> */}
       <Hr />
-      <Project projects={projects} />
+      <Project />
       <Hr />
-      <Resume experiences={experiences} />
+      <Resume />
       <Hr />
       <Contact />
       <Hr />

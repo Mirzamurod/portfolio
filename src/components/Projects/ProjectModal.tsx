@@ -35,7 +35,7 @@ const ProjectModal = ({
                   <div
                     className='w-100 h-100 borr-10'
                     style={{
-                      backgroundImage: `url(${data?.image.url})`,
+                      backgroundImage: `url(${data?.image})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center center',
                     }}

@@ -1,18 +1,10 @@
 import { useEffect } from 'react'
-import Main from '@/components/Main'
 import Head from 'next/head'
 import AOS from 'aos'
-import { getExperiences, getProjects } from '@/services'
-import { TProject } from '@/types/project'
-import { TExperience } from '@/types/experience'
+import Main from '@/components/Main'
+import Script from 'next/script'
 
-export default function Home({
-  projects,
-  experiences,
-}: {
-  projects: TProject[]
-  experiences: TExperience[]
-}) {
+export default function Home() {
   useEffect(() => {
     AOS.init({ duration: 1000 })
   }, [])
@@ -30,9 +22,9 @@ export default function Home({
           content='DyKgwQ0Z-CK17Q6XsIDqVOad0KJq5bWLt0HwAQw9eFA'
         />
         <link rel='apple-touch-icon' href='./images/logo.png' />
-        <script async src='https://www.googletagmanager.com/gtag/js?id=G-XKLBHLPF8M'></script>
+        <Script async src='https://www.googletagmanager.com/gtag/js?id=G-XKLBHLPF8M'></Script>
         {process.env.NODE_ENV === 'production' && (
-          <script
+          <Script
             dangerouslySetInnerHTML={{
               __html: `window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -43,16 +35,7 @@ export default function Home({
           />
         )}
       </Head>
-      <Main projects={projects} experiences={experiences} />
+      <Main />
     </>
   )
-}
-
-export async function getStaticProps() {
-  const projects = (await getProjects()) || []
-  const experiences = (await getExperiences()) || []
-
-  return {
-    props: { projects, experiences },
-  }
 }
