@@ -12,8 +12,8 @@ const Image = ({ item }: any) => (
       <div
         key={index}
         className='d-flex align-items-center justify-content-center w-h-81 mb-4 my-2 mx-3 bg-color-1 box-shadow borr-6'
-        data-aos={`${index % 2 === 0 ? 'fade-down-right' : 'fade-down-left'}`}
-        data-aos-delay={`${index + '00'}`}
+        data-aos={index % 2 === 0 ? 'fade-down-right' : 'fade-down-left'}
+        data-aos-delay={index + '00'}
       >
         <img src={`/images/${item}.png`} alt={item} className='w-auto' />
       </div>

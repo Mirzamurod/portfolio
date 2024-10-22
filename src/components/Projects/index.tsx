@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Card, CardBody, Col, Container, Row } from 'reactstrap'
 import axios from 'axios'
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import { Title } from '@/components/Title'
 import { Heart } from '@/components/Others/Heart'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
@@ -11,8 +12,20 @@ import Loader from '@/components/Projects/Loader'
 const Project = () => {
   const [modal, setModal] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [disabled, setDisabled] = useState(false)
   let [data, setData] = useState<TProject | null>(null)
   const [projects, setProjects] = useState<TProject[]>([])
+  const [visitorId, setVisitorId] = useState('')
+
+  useEffect(() => {
+    const getFingerprint = async () => {
+      const fp = await FingerprintJS.load()
+      const result = await fp.get()
+      setVisitorId(result.visitorId)
+    }
+
+    getFingerprint()
+  }, [])
 
   const modalBtn = () => setModal(!modal)
 
@@ -40,30 +53,35 @@ const Project = () => {
   }, [])
 
   const add_like = async (project: TProject) => {
+    setDisabled(true)
     await axios({
       method: 'patch',
       url: '/api/edit-project',
-      data: { id: project._id, like: Number(project.like) + 1 },
+      data: { id: project._id, like: Number(project.like) + 1, fingerprint: visitorId },
     })
-      .then(() => {
+      .then(res => {
         let data: TProject[] = []
         projects.map(item =>
           item._id === project._id
-            ? data.push({ ...item, like: Number(project.like) + 1 })
+            ? data.push({ ...item, like: Number(project.like) + Number(res.data) })
             : data.push(item)
         )
         setProjects([...data])
+        setDisabled(false)
         getProducts()
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        setDisabled(false)
+        console.log(error)
+      })
   }
 
   return (
     <div id='project'>
       <Container>
         <Title
-          subtitle={'visit my portfolio and keep your feedback'}
-          title={'my portfolio'}
+          subtitle='visit my portfolio and keep your feedback'
+          title='my portfolio'
           center
         />
         <Row>
@@ -79,8 +97,8 @@ const Project = () => {
                   xl='4'
                   key={project._id}
                   className='px-xl-25 py-4'
-                  data-aos={`${index % 2 === 0 ? 'fade-up' : 'fade-down'}`}
-                  data-aos-delay={`${index + '00'}`}
+                  data-aos={index % 2 === 0 ? 'fade-up' : 'fade-down'}
+                  data-aos-delay={index + '00'}
                 >
                   <div className='h-100'>
                     <div
@@ -107,9 +125,13 @@ const Project = () => {
                             >
                               {project.featured}
                             </a>
-                            <div onClick={() => add_like(project)}>
+                            <button
+                              className='bg-transparent border-0'
+                              disabled={disabled}
+                              onClick={() => add_like(project)}
+                            >
                               <Heart rating={project.like} />
-                            </div>
+                            </button>
                           </div>
                           <div className='hover-commet' onClick={modalBtn}>
                             <div className='fs-xl-24 fs-md-24 color-lightn p-semi-bold cursor-pointer text-decoration-none'>
@@ -131,7 +153,7 @@ const Project = () => {
           />
         ) : null}
         <div className={`position-fixed ${modal ? 'project-modal' : 'd-none'}`}>
-          <ProjectModal modalBtn={modalBtn} data={data!} />
+          <ProjectModal modalBtn={modalBtn} data={data!} add_like={add_like} disabled={disabled} />
         </div>
       </Container>
     </div>

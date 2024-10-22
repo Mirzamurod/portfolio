@@ -27,7 +27,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div id='sidebar' className={`${show && 'scroll_navbar'}`}>
+    <div id='sidebar' className={show ? 'scroll_navbar' : ''}>
       <Navbar expand='md' className='py-4'>
         <Container className='d-flex justify-content-between'>
           <NavbarBrand href='/'>
@@ -115,7 +115,7 @@ const Sidebar = () => {
                 <NavItem className='me-4' key={data.id}>
                   <NavLink
                     href={data.id}
-                    className={`color-lightn my-2 fs-xl-18 font-secondary p-medium opacity-75`}
+                    className='color-lightn my-2 fs-xl-18 font-secondary p-medium opacity-75'
                     onClick={toggle}
                   >
                     {data.name}

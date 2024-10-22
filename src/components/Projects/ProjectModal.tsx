@@ -7,9 +7,13 @@ import { TProject } from '@/types/project'
 const ProjectModal = ({
   data,
   modalBtn,
+  add_like,
+  disabled,
 }: {
   data: TProject
+  disabled: boolean
   modalBtn: (value: boolean) => void
+  add_like: (value: any) => any
 }) => {
   const btnColor =
     'color-primary text-uppercase fs-xl-14 p-medium font-primary d-flex box-shadow bg-color-1 px-4 py-2 borr-6'
@@ -58,17 +62,21 @@ const ProjectModal = ({
                     </div>
                     <div className='d-flex mt-2'>
                       <div className='me-sm-4 cursor-pointer'>
-                        <div className={`${btnColor}`}>
+                        <button
+                          disabled={disabled}
+                          className={`bg-transparent border-0 ${btnColor}`}
+                          onClick={() => add_like(data)}
+                        >
                           <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
                             like this
                           </p>
                           <span>
                             <BiLike />
                           </span>
-                        </div>
+                        </button>
                       </div>
-                      <div className=''>
-                        <a href={`${data?.url}`} className={`text-decoration-none ${btnColor}`}>
+                      <div>
+                        <a href={data?.url} className={`text-decoration-none ${btnColor}`}>
                           <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
                             view project
                           </p>

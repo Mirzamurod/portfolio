@@ -16,8 +16,8 @@ const WhatIDo = () => {
               xl='4'
               key={data.id}
               className='px-xl-25'
-              data-aos={`${data.id % 2 === 0 ? 'fade-left' : 'fade-right'}`}
-              data-aos-delay={`${data.id + '00'}`}
+              data-aos={data.id % 2 === 0 ? 'fade-left' : 'fade-right'}
+              data-aos-delay={data.id + '00'}
             >
               <div className='bg-color-1 borr-10 border-0 box-shadow hover-bg-color-1 my-4'>
                 <Card className='bg-color p-4 p-sm-4 p-lg-4 p-xl-5'>
