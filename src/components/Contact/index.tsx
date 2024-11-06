@@ -108,7 +108,7 @@ Message: ${data.message} %0A`
                         <div className='color-body me-2 fs-xl-18'>Email:</div>
                         <Link
                           url='mailto:mirzamurodrahimberdiyev@gmail.com'
-                          words='mirzamurodrahimdiyev@gamil.com'
+                          words='mirzamurodrahimberdiyev@gamil.com'
                           contact
                         />
                       </div>
