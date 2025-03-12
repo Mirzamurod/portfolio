@@ -49,7 +49,7 @@ Number: ${data.phone} %0A
 Email: ${data?.email} %0A
 Subject: ${data.subject} %0A
 Message: ${data.message} %0A`
-    const url = `https://api.telegram.org/bot${'2049880477:AAFQUCdSl8wzxE7QIwP7qU5_lFdmzlAPjXA'}/sendMessage?chat_id=${'-1001300088307'}&text=${my_text}` // &parse_mode = html => teglarini my_text ichida ishlatishga yordam beradi. Lekin ishlamadi warning ham bermadi!!!
+    const url = `https://api.telegram.org/bot${'8162622071:AAGisU80sm3Mv1LuDqWghN5S7A0OXoXsUIE'}/sendMessage?chat_id=${'-1001300088307'}&text=${my_text}` // &parse_mode = html => teglarini my_text ichida ishlatishga yordam beradi. Lekin ishlamadi warning ham bermadi!!!
     let api = new XMLHttpRequest()
     api.open('GET', url, true)
     api.send()
