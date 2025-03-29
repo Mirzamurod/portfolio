@@ -79,11 +79,7 @@ const Project = () => {
   return (
     <div id='project'>
       <Container>
-        <Title
-          subtitle='visit my portfolio and keep your feedback'
-          title='my portfolio'
-          center
-        />
+        <Title subtitle='visit my portfolio and keep your feedback' title='my portfolio' center />
         <Row>
           {loading
             ? [...new Array(3)].map((_, index) => (
@@ -106,7 +102,7 @@ const Project = () => {
                       onClick={() => setData(project)}
                     >
                       <Card className='bg-transparent border-0 h-100'>
-                        <div className='w-100 overflow-hidden mx-auto borr-10'>
+                        <div className='w-100 overflow-hidden mx-auto borr-10' onClick={modalBtn}>
                           <LazyLoadImage
                             effect='blur'
                             // top

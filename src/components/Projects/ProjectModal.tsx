@@ -76,7 +76,11 @@ const ProjectModal = ({
                         </button>
                       </div>
                       <div>
-                        <a href={data?.url} className={`text-decoration-none ${btnColor}`}>
+                        <a
+                          href={data?.url}
+                          target='_blank'
+                          className={`text-decoration-none ${btnColor}`}
+                        >
                           <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
                             view project
                           </p>
