@@ -297,6 +297,12 @@ body {
   cursor: pointer !important;
 }
 
+@media (min-width: 1200px) {
+  .p-xl-30 {
+    padding: 30px;
+  }
+}
+
 @media (max-width: 575px) {
   .fs-60 {
     font-size: 30px !important;
@@ -889,7 +895,8 @@ a {
   }
 }
 
-#project {
+#project,
+#blog {
   .container {
     .row {
       .col-md-6 {
@@ -999,5 +1006,18 @@ a {
       max-height: 30px;
       object-fit: contain;
     }
+  }
+}
+
+#blogview {
+  color: white;
+}
+
+#sidebarblog {
+  font-family: $font-secondary;
+  font-weight: $p-regular;
+
+  span {
+    color: $color-lightn !important;
   }
 }

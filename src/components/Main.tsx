@@ -7,6 +7,7 @@ import { Hr } from '@/components/Hr'
 import Footer from '@/components/Footer'
 // @ts-ignore
 import ProgressBar from 'react-scroll-progress-bar'
+import Blog from './Blog'
 
 const Main = () => {
   return (
@@ -20,6 +21,8 @@ const Main = () => {
       <Project />
       <Hr />
       <Resume />
+      <Hr />
+      <Blog />
       <Hr />
       <Contact />
       <Hr />

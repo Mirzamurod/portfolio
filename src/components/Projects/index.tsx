@@ -98,7 +98,7 @@ const Project = () => {
                 >
                   <div className='h-100'>
                     <div
-                      className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-5 borr-20 hover-card h-100'
+                      className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-30 borr-20 hover-card h-100'
                       onClick={() => setData(project)}
                     >
                       <Card className='bg-transparent border-0 h-100'>

@@ -39,6 +39,7 @@ const Sidebar = () => {
               // 'whatido',
               'project',
               'resume',
+              'blog',
               'contact',
             ]}
             offset={-136}

@@ -20,6 +20,11 @@ export const SidebarData = [
     class: '',
   },
   {
+    name: 'Blog',
+    id: '#blog',
+    class: '',
+  },
+  {
     name: 'Contact',
     id: '#contact',
     class: '',

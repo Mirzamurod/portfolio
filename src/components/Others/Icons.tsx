@@ -2,7 +2,7 @@ const Icons = (props: any) => {
   const others = {
     facebook: 'https://www.facebook.com/mrmirzamurod.rahimberdiyev.1',
     instagram: 'https://www.instagram.com/m_rahimberdiyev77',
-    telegram: 'https://t.me/mirzamurod_dev',
+    telegram: 'https://t.me/mirzamurod_blog',
     linkedin:
       'https://www.linkedin.com/in/mirzamurod-rahimberdiyev-56a936229?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bc4a3902bTlKpjNmXE5UP2w%3D%3D',
     github: 'https://github.com/Mirzamurod',
