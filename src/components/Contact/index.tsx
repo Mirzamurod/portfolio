@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Image from 'next/image'
 import { Controller, useForm } from 'react-hook-form'
 import {
   Button,
@@ -17,7 +18,6 @@ import {
 } from 'reactstrap'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { Title } from '@/components/Title'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import Link from '@/components/Others/Link'
 import Icons from '@/components/Others/Icons'
 
@@ -74,11 +74,15 @@ Message: ${data.message} %0A`
             <div className='bg-color-1 box-shadow p-4 hover-img borr-10' data-aos='fade-left'>
               <Card className='bg-transparent border-0'>
                 <div className='border border-0 overflow-hidden borr-10'>
-                  <LazyLoadImage
-                    effect='blur'
+                  <Image
                     src='/images/contact1.png'
-                    alt='contact.png'
+                    alt='Contact Mirzamurod'
+                    width={600}
+                    height={400}
                     className='w-100'
+                    loading='lazy'
+                    placeholder='blur'
+                    blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
                   />
                 </div>
                 <CardBody className='px-0 pb-0'>

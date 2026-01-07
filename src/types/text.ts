@@ -1,4 +1,4 @@
-import { TBlog } from './blog'
+import type { TBlog } from './blog'
 
 export type TText = {
   _id: string

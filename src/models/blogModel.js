@@ -10,7 +10,10 @@ const blogSchema = new Schema(
   { timestamps: true }
 )
 
-// export default mongoose.models.Blog || mongoose.model('Blog', blogSchema)
+// Database index qo'shish - query performance uchun
+blogSchema.index({ createdAt: -1 })
+blogSchema.index({ _id: 1 })
+blogSchema.index({ text: 1 })
 
 const Blog = mongoose.models.Blog || mongoose.model('Blog', blogSchema)
 

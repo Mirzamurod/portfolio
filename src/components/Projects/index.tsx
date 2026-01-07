@@ -1,24 +1,26 @@
-import { useEffect, useState } from 'react'
+import type { TProject } from '@/types/project'
+
+import { useEffect, useState, useCallback, memo } from 'react'
+import Image from 'next/image'
 import { Card, CardBody, Col, Container, Row } from 'reactstrap'
 import axios from 'axios'
-import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import { Title } from '@/components/Title'
 import { Heart } from '@/components/Others/Heart'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import ProjectModal from '@/components/Projects/ProjectModal'
-import { TProject } from '@/types/project'
 import Loader from '@/components/Projects/Loader'
 
-const Project = () => {
+const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
   const [modal, setModal] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(!initialProjects || initialProjects.length === 0)
   const [disabled, setDisabled] = useState(false)
   let [data, setData] = useState<TProject | null>(null)
-  const [projects, setProjects] = useState<TProject[]>([])
+  const [projects, setProjects] = useState<TProject[]>(initialProjects || [])
   const [visitorId, setVisitorId] = useState('')
 
   useEffect(() => {
+    // FingerprintJS ni dynamic import qilish - faqat kerak bo'lganda yuklash
     const getFingerprint = async () => {
+      const FingerprintJS = (await import('@fingerprintjs/fingerprintjs')).default
       const fp = await FingerprintJS.load()
       const result = await fp.get()
       setVisitorId(result.visitorId)
@@ -37,7 +39,9 @@ const Project = () => {
         setLoading(false)
       })
       .catch(error => {
-        console.log(error.message)
+        if (process.env.NODE_ENV === 'development') {
+          console.log(error.message)
+        }
         setLoading(false)
       })
   }
@@ -47,34 +51,42 @@ const Project = () => {
   }, [modal])
 
   useEffect(() => {
-    setLoading(true)
-
-    getProducts()
+    // Fallback - API call qilish (faqat initialProjects bo'lmasa)
+    if (!initialProjects || initialProjects.length === 0) {
+      getProducts()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const add_like = async (project: TProject) => {
-    setDisabled(true)
-    await axios({
-      method: 'patch',
-      url: '/api/edit-project',
-      data: { id: project._id, like: Number(project.like) + 1, fingerprint: visitorId },
-    })
-      .then(res => {
-        let data: TProject[] = []
-        projects.map(item =>
-          item._id === project._id
-            ? data.push({ ...item, like: Number(project.like) + Number(res.data) })
-            : data.push(item)
-        )
-        setProjects([...data])
-        setDisabled(false)
-        getProducts()
+  // add_like funksiyasini memoize qilish - re-render ni oldini olish
+  const add_like = useCallback(
+    async (project: TProject) => {
+      setDisabled(true)
+      await axios({
+        method: 'patch',
+        url: '/api/edit-project',
+        data: { id: project._id, like: Number(project.like) + 1, fingerprint: visitorId },
       })
-      .catch(error => {
-        setDisabled(false)
-        console.log(error)
-      })
-  }
+        .then(res => {
+          let data: TProject[] = []
+          projects.map(item =>
+            item._id === project._id
+              ? data.push({ ...item, like: Number(project.like) + Number(res.data) })
+              : data.push(item)
+          )
+          setProjects([...data])
+          setDisabled(false)
+          getProducts()
+        })
+        .catch(error => {
+          setDisabled(false)
+          if (process.env.NODE_ENV === 'development') {
+            console.log(error)
+          }
+        })
+    },
+    [visitorId, projects]
+  )
 
   return (
     <div id='project'>
@@ -103,14 +115,16 @@ const Project = () => {
                     >
                       <Card className='bg-transparent border-0 h-100'>
                         <div className='w-100 overflow-hidden mx-auto borr-10' onClick={modalBtn}>
-                          <LazyLoadImage
-                            effect='blur'
-                            // top
-                            width='100%'
-                            height='250px'
+                          <Image
                             src={project.image}
-                            alt='Card image cap1'
-                            style={{ objectFit: 'cover' }}
+                            alt={project.name}
+                            width={400}
+                            height={250}
+                            className='w-100'
+                            style={{ objectFit: 'cover', height: '250px' }}
+                            loading='lazy'
+                            placeholder='blur'
+                            blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
                           />
                         </div>
                         <CardBody className='p-0'>
@@ -156,4 +170,5 @@ const Project = () => {
   )
 }
 
-export default Project
+// React.memo bilan komponentni memoize qilish - re-render ni oldini olish
+export default memo(Project)

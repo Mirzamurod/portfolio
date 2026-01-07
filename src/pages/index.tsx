@@ -1,12 +1,15 @@
 import { useEffect } from 'react'
 import Head from 'next/head'
-import AOS from 'aos'
-import Main from '@/components/Main'
 import Script from 'next/script'
+import Main from '@/components/Main'
+import { fetchProjects, fetchExperiences, fetchBlogs } from '@/libs/fetchData'
 
-export default function Home() {
+export default function Home({ projects, experiences, blogs }: any) {
   useEffect(() => {
-    AOS.init({ duration: 1000 })
+    // AOS ni dynamic import qilish - faqat client-side yuklash
+    import('aos').then(AOS => {
+      AOS.default.init({ duration: 1000 })
+    })
   }, [])
 
   return (
@@ -22,7 +25,11 @@ export default function Home() {
           content='DyKgwQ0Z-CK17Q6XsIDqVOad0KJq5bWLt0HwAQw9eFA'
         />
         <link rel='apple-touch-icon' href='./images/logo.png' />
-        <Script async src='https://www.googletagmanager.com/gtag/js?id=G-XKLBHLPF8M'></Script>
+        {/* Google Analytics Script - Performance optimization */}
+        <Script
+          src='https://www.googletagmanager.com/gtag/js?id=G-XKLBHLPF8M'
+          strategy='afterInteractive'
+        />
         {process.env.NODE_ENV === 'production' && (
           <Script
             dangerouslySetInnerHTML={{
@@ -35,7 +42,39 @@ export default function Home() {
           />
         )}
       </Head>
-      <Main />
+      <Main initialProjects={projects} initialExperiences={experiences} initialBlogs={blogs} />
     </>
   )
+}
+
+// Static Generation (SSG) with Incremental Static Regeneration (ISR)
+export async function getStaticProps() {
+  try {
+    // Parallel API calls - performance optimization
+    const [projects, experiences, blogs] = await Promise.all([
+      fetchProjects(),
+      fetchExperiences(),
+      fetchBlogs(),
+    ])
+
+    return {
+      props: {
+        projects,
+        experiences,
+        blogs,
+      },
+      // ISR - 60 soniyada bir yangilanadi
+      revalidate: 60,
+    }
+  } catch (error) {
+    // Error handling - fallback to empty arrays
+    return {
+      props: {
+        projects: [],
+        experiences: [],
+        blogs: [],
+      },
+      revalidate: 60,
+    }
+  }
 }

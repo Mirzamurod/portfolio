@@ -1,8 +1,10 @@
+import type { TProject } from '@/types/project'
+
+import Image from 'next/image'
 import { Col, Container, Row } from 'reactstrap'
 import { BsChevronRight } from 'react-icons/bs'
 import { AiOutlineClose } from 'react-icons/ai'
 import { BiLike } from 'react-icons/bi'
-import { TProject } from '@/types/project'
 
 const ProjectModal = ({
   data,
@@ -36,14 +38,16 @@ const ProjectModal = ({
             <div>
               <Row className='mx-xl-5 mx-md-4 mx-3 pb-lg-0 pb-4'>
                 <Col lg='6' md='12' className='pe-lg-4 ps-lg-3 h-md-280 h-sm-200 mb-lg-0 mb-3'>
-                  <div
-                    className='w-100 h-100 borr-10'
-                    style={{
-                      backgroundImage: `url(${data?.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center center',
-                    }}
-                  />
+                  <div className='w-100 h-100 borr-10 overflow-hidden position-relative'>
+                    <Image
+                      src={data?.image}
+                      alt={data?.name}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes='(max-width: 768px) 100vw, 50vw'
+                      priority
+                    />
+                  </div>
                 </Col>
                 <Col lg='6' md='12' className='ps-xl-3'>
                   <div>

@@ -12,6 +12,10 @@ const projectSchema = new Schema(
   { timestamps: true }
 )
 
+// Database index qo'shish - query performance uchun
+projectSchema.index({ createdAt: -1 })
+projectSchema.index({ _id: 1 })
+
 const Project = mongoose.models.Project || mongoose.model('Project', projectSchema)
 
 export default Project

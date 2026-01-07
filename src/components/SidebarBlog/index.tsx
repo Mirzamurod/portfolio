@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarText, NavItem } from 'reactstrap'
+import { Container, Navbar, NavbarBrand, NavbarText } from 'reactstrap'
 
 const SidebarBlog = () => {
   const [show, setShow] = useState(false)

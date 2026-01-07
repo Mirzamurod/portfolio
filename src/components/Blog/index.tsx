@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react'
+import type { TBlog } from '@/types/blog'
+
+import { memo, useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import axios from 'axios'
 import { Card, CardBody, Col, Container, Row } from 'reactstrap'
 import { Title } from '../Title'
 import Loader from '../Projects/Loader'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Time } from '../Others/Time'
-import { TBlog } from '@/types/blog'
 
-const Blog = () => {
-  const [blogs, setBlogs] = useState<TBlog[]>([])
-  const [loading, setLoading] = useState(false)
+const Blog = ({ initialBlogs }: { initialBlogs?: TBlog[] }) => {
+  const [blogs, setBlogs] = useState<TBlog[]>(initialBlogs || [])
+  const [loading, setLoading] = useState(!initialBlogs || initialBlogs.length === 0)
 
   const getProducts = async () => {
     axios
@@ -20,15 +21,19 @@ const Blog = () => {
         setLoading(false)
       })
       .catch(error => {
-        console.log(error.message)
+        if (process.env.NODE_ENV === 'development') {
+          console.log(error.message)
+        }
         setLoading(false)
       })
   }
 
   useEffect(() => {
-    setLoading(true)
-
-    getProducts()
+    // Fallback - API call qilish (faqat initialBlogs bo'lmasa)
+    if (!initialBlogs || initialBlogs.length === 0) {
+      getProducts()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -55,14 +60,16 @@ const Blog = () => {
                     <div className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-30 borr-20 hover-card h-100'>
                       <Card className='bg-transparent border-0 h-100'>
                         <div className='w-100 overflow-hidden mx-auto borr-10'>
-                          <LazyLoadImage
-                            effect='blur'
-                            // top
-                            width='100%'
-                            height='250px'
+                          <Image
                             src={blog.image}
-                            alt='Card image cap1'
-                            style={{ objectFit: 'cover' }}
+                            alt={blog.title}
+                            width={400}
+                            height={250}
+                            className='w-100'
+                            style={{ objectFit: 'cover', height: '250px' }}
+                            loading='lazy'
+                            placeholder='blur'
+                            blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
                           />
                         </div>
                         <CardBody className='p-0'>
@@ -70,9 +77,9 @@ const Blog = () => {
                             <p className='color-primary text-decoration-none p-medium font-primary fs-xl-12 text-uppercase mb-0'>
                               {blog.name}
                             </p>
-                            <p className='bg-transparent border-0 mb-0'>
+                            <div className='bg-transparent border-0 mb-0'>
                               <Time date={blog.createdAt} />
-                            </p>
+                            </div>
                           </div>
                           <div className='hover-commet'>
                             <Link
@@ -94,4 +101,5 @@ const Blog = () => {
   )
 }
 
-export default Blog
+// React.memo bilan komponentni memoize qilish - re-render ni oldini olish
+export default memo(Blog)

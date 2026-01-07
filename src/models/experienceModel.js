@@ -9,6 +9,10 @@ const experienceSchema = new Schema(
   { timestamps: true }
 )
 
+// Database index qo'shish - query performance uchun
+experienceSchema.index({ createdAt: -1 })
+experienceSchema.index({ _id: 1 })
+
 const Experience = mongoose.models.Experience || mongoose.model('Experience', experienceSchema)
 
 export default Experience

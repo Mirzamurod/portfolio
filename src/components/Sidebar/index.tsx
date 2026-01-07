@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap'
 import { MdClose } from 'react-icons/md'
 import { SidebarData } from '@/components/Sidebar/SidebarData'
 import Icons from '@/components/Others/Icons'
-// @ts-ignore
-import ScrollspyNav from 'react-scrollspy-nav'
+
+// ScrollspyNav ni dynamic import qilish - performance optimization
+const ScrollspyNav = dynamic(() => import('react-scrollspy-nav'), {
+  ssr: false,
+}) as any
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -31,7 +36,7 @@ const Sidebar = () => {
       <Navbar expand='md' className='py-4'>
         <Container className='d-flex justify-content-between'>
           <NavbarBrand href='/'>
-            <img src='/images/logo.png' style={{ width: '38px' }} alt='logo' />
+            <Image src='/images/logo.png' width={38} height={38} alt='logo' priority />
           </NavbarBrand>
           <ScrollspyNav
             scrollTargetIds={[
@@ -64,7 +69,7 @@ const Sidebar = () => {
             </Collapse>
             <Collapse navbar className='navbar-chap' onClick={toggle}>
               <div className=''>
-                <img src='/images/navbar-toggle.svg' width='36px' height='36px' alt='navbar' />
+                <Image src='/images/navbar-toggle.svg' width={36} height={36} alt='navbar' />
               </div>
             </Collapse>
           </ScrollspyNav>
@@ -84,7 +89,7 @@ const Sidebar = () => {
         <div className={`p-2 position-relative h-100vh ${isOpen ? '' : 'l--50'}`}>
           <div className='d-flex justify-content-between'>
             <div className='navbar-brand color-white'>
-              <img src='/images/logo.png' style={{ width: '38px' }} alt='logo' />
+              <Image src='/images/logo.png' width={38} height={38} alt='logo' />
             </div>
             <div
               onClick={toggle}

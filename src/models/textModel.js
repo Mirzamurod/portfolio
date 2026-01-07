@@ -9,7 +9,10 @@ const textSchema = new Schema(
   { timestamps: true }
 )
 
-// export default mongoose.models.Text || mongoose.model('Text', textSchema)
+// Database index qo'shish - query performance uchun
+textSchema.index({ slug: 1 }) // Unique index allaqachon bor, lekin explicit qo'shamiz
+textSchema.index({ blog: 1 })
+textSchema.index({ createdAt: -1 })
 
 const Text = mongoose.models.Text || mongoose.model('Text', textSchema)
 

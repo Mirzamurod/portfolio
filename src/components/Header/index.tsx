@@ -1,7 +1,13 @@
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Col, Container, Row } from 'reactstrap'
-import Typewriter from 'typewriter-effect'
+import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Icons from '@/components/Others/Icons'
+
+// Typewriter ni dynamic import qilish - performance optimization
+const Typewriter = dynamic(() => import('typewriter-effect'), {
+  ssr: false,
+  loading: () => <span>a</span>, // Loading state
+})
 
 const Header = () => {
   return (
@@ -74,28 +80,6 @@ const Header = () => {
                     </div>
                   </Col>
                 </Row>
-              </div>
-            </div>
-          </Col>
-          <Col
-            xl={{ size: 5, order: 2, offset: 1 }}
-            lg={{ size: 5, order: 2 }}
-            md={{ size: 12, order: 1 }}
-            sm={{ size: 12, order: 1 }}
-            className='order-1'
-          >
-            <div>
-              <div className='w-100'>
-                <div className='w-md-75 w-lg-75 w-xl-50 w-100 ms-auto'>
-                  <div className='box-shadow bg-color-1 rounded-circle w-50 mx-auto mt-lg-5 h-130'>
-                    <LazyLoadImage
-                      src='/images/myphoto1.png'
-                      effect='blur'
-                      alt='banner-01'
-                      className='img-top-25 w-100 rounded-circle'
-                    />
-                  </div>
-                </div>
               </div>
             </div>
           </Col>

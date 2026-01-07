@@ -1,40 +1,45 @@
-import { useEffect, useState } from 'react'
+import type { TExperience } from '@/types/experience'
+
+import { useEffect, useState, useMemo } from 'react'
 import { Col, Container, Row } from 'reactstrap'
+import axios from 'axios'
 import { Title } from '../Title'
 import Education from './Components/Education'
 import ProSkills from './Components/ProSkills'
 import Experience from './Components/Experience'
 import Interview from '@/components/Resume/Components/Interview'
-import { TExperience } from '@/types/experience'
-import axios from 'axios'
 
-const Resume = () => {
+const Resume = ({ initialExperiences }: { initialExperiences?: TExperience[] }) => {
   const [focus, setFocus] = useState('pro')
-  const [experiences, setExperiences] = useState<TExperience[]>([])
-  const [loading, setLoading] = useState(false)
+  const [experiences, setExperiences] = useState<TExperience[]>(initialExperiences || [])
+  const [loading, setLoading] = useState(!initialExperiences || initialExperiences.length === 0)
 
   const classButton =
     'hover-box-shadow py-4 hover-color-primary focus-color-primary borr-10 text-capitalize hover-button font-primary fs-xl-18 p-medium'
   const focusButton = 'color-primary box-shadow bg-color-1'
 
-  const tabs = [
-    // {
-    //     shortName: 'edu',
-    //     longName: 'education',
-    // },
-    {
-      shortName: 'pro',
-      longName: 'professional skills',
-    },
-    {
-      shortName: 'exp',
-      longName: 'experience',
-    },
-    {
-      shortName: 'int',
-      longName: 'interview',
-    },
-  ]
+  // Tabs ni memoize qilish - re-render ni oldini olish
+  const tabs = useMemo(
+    () => [
+      // {
+      //     shortName: 'edu',
+      //     longName: 'education',
+      // },
+      {
+        shortName: 'pro',
+        longName: 'professional skills',
+      },
+      {
+        shortName: 'exp',
+        longName: 'experience',
+      },
+      {
+        shortName: 'int',
+        longName: 'interview',
+      },
+    ],
+    []
+  )
 
   const getProducts = async () => {
     axios
@@ -44,15 +49,19 @@ const Resume = () => {
         setLoading(false)
       })
       .catch(error => {
-        console.log(error.message)
+        if (process.env.NODE_ENV === 'development') {
+          console.log(error.message)
+        }
         setLoading(false)
       })
   }
 
   useEffect(() => {
-    setLoading(true)
-
-    getProducts()
+    // Fallback - API call qilish (faqat initialExperiences bo'lmasa)
+    if (!initialExperiences || initialExperiences.length === 0) {
+      getProducts()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

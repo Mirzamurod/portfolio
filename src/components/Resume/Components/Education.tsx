@@ -1,5 +1,5 @@
-import ResumeCart from '@/components/Others/ResumeCart'
 import { Col, Container, Row } from 'reactstrap'
+import ResumeCart from '@/components/Others/ResumeCart'
 
 const Education = () => {
   return (

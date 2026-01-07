@@ -1,4 +1,4 @@
-import { TText } from './text'
+import type { TText } from './text'
 
 export type TBlog = {
   createdAt: string
