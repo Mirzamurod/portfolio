@@ -58,7 +58,13 @@ const Resume = () => {
   return (
     <div id='resume'>
       <Container>
-        <Title subtitle='1+ years of experience' title='my resume' center />
+        <Title
+          subtitle={`${
+            new Date().getFullYear() - 2022 - (new Date().getMonth() < 2 ? 1 : 0)
+          }+ years of experience`}
+          title='my resume'
+          center
+        />
         <Row className='color-white text-center box-shadow bg-color-1 borr-10 mt-xl-5 mt-lg-5 mt-md-4 '>
           {tabs.map(nma => (
             <Col md={4} className='px-0' key={nma.shortName}>
