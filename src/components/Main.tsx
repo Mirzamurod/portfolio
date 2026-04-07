@@ -88,8 +88,8 @@ const Main = ({
       <Project initialProjects={initialProjects} />
       <Hr />
       <Resume initialExperiences={initialExperiences} />
-      <Hr />
-      <Blog initialBlogs={initialBlogs} />
+      {/* <Hr />
+      <Blog initialBlogs={initialBlogs} /> */}
       <Hr />
       <Contact />
       <Hr />

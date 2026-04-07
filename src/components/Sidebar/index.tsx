@@ -44,7 +44,7 @@ const Sidebar = () => {
               // 'whatido',
               'project',
               'resume',
-              'blog',
+              // 'blog',
               'contact',
             ]}
             offset={-136}
@@ -107,7 +107,7 @@ const Sidebar = () => {
               {/* year-month-day */}
               {Math.floor(
                 (Date.parse(String(new Date())) - Date.parse('2002-02-08')) /
-                  (1000 * 60 * 60 * 24 * 30 * 12)
+                  (1000 * 60 * 60 * 24 * 30 * 12),
               )}{' '}
               y.o. Junior Web Full Stack Developer
             </p>
