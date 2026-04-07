@@ -31,6 +31,11 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
 
   const modalBtn = () => setModal(!modal)
 
+  const openProjectModal = (project: TProject) => {
+    setData(project)
+    setModal(true)
+  }
+
   const getProducts = async () => {
     axios
       .get('/api/projects')
@@ -72,7 +77,7 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
           projects.map(item =>
             item._id === project._id
               ? data.push({ ...item, like: Number(project.like) + Number(res.data) })
-              : data.push(item)
+              : data.push(item),
           )
           setProjects([...data])
           setDisabled(false)
@@ -85,7 +90,7 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
           }
         })
     },
-    [visitorId, projects]
+    [visitorId, projects],
   )
 
   return (
@@ -110,11 +115,19 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
                 >
                   <div className='h-100'>
                     <div
-                      className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-30 borr-20 hover-card h-100'
-                      onClick={() => setData(project)}
+                      className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-30 borr-20 hover-card h-100 cursor-pointer'
+                      onClick={() => openProjectModal(project)}
+                      role='button'
+                      tabIndex={0}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          openProjectModal(project)
+                        }
+                      }}
                     >
                       <Card className='bg-transparent border-0 h-100'>
-                        <div className='w-100 overflow-hidden mx-auto borr-10' onClick={modalBtn}>
+                        <div className='w-100 overflow-hidden mx-auto borr-10'>
                           <Image
                             src={project.image}
                             alt={project.name}
@@ -129,22 +142,23 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
                         </div>
                         <CardBody className='p-0'>
                           <div className='d-flex my-3 justify-content-between'>
-                            <a
-                              href={project.url}
-                              className='color-primary text-decoration-none p-medium font-primary fs-xl-12 text-uppercase'
-                            >
+                            <p className='color-primary text-decoration-none p-medium font-primary fs-xl-12 text-uppercase'>
                               {project.featured}
-                            </a>
+                            </p>
                             <button
+                              type='button'
                               className='bg-transparent border-0'
                               disabled={disabled}
-                              onClick={() => add_like(project)}
+                              onClick={e => {
+                                e.stopPropagation()
+                                add_like(project)
+                              }}
                             >
                               <Heart rating={project.like} />
                             </button>
                           </div>
-                          <div className='hover-commet' onClick={modalBtn}>
-                            <div className='fs-xl-24 fs-md-24 color-lightn p-semi-bold cursor-pointer text-decoration-none'>
+                          <div className='hover-commet'>
+                            <div className='fs-xl-24 fs-md-24 color-lightn p-semi-bold text-decoration-none'>
                               {project.name}
                             </div>
                           </div>
@@ -155,17 +169,31 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
                 </Col>
               ))}
         </Row>
-        {modal ? (
-          <div
-            className='position-fixed start-0 top-0 bottom-0 end-0 bg-color w-100 overflow-hidden'
-            style={{ zIndex: '998' }}
-            onClick={() => setModal(!modal)}
-          />
-        ) : null}
-        <div className={`position-fixed ${modal ? 'project-modal' : 'd-none'}`}>
-          <ProjectModal modalBtn={modalBtn} data={data!} add_like={add_like} disabled={disabled} />
-        </div>
       </Container>
+      {modal ? (
+        <div
+          className='project-modal-overlay position-fixed top-0 start-0 end-0 bottom-0 w-100 min-vh-100 d-flex justify-content-center overflow-auto overflow-x-hidden bg-color px-3 px-md-4'
+          style={{
+            zIndex: 999,
+            paddingTop: 'max(2rem, calc(1rem + env(safe-area-inset-top, 0px)))',
+            paddingBottom: 'max(2rem, calc(1rem + env(safe-area-inset-bottom, 0px)))',
+          }}
+          onClick={() => setModal(!modal)}
+        >
+          <div
+            className='w-100 flex-shrink-0 my-auto'
+            style={{ maxWidth: 1140 }}
+            onClick={e => e.stopPropagation()}
+          >
+            <ProjectModal
+              modalBtn={modalBtn}
+              data={data!}
+              add_like={add_like}
+              disabled={disabled}
+            />
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

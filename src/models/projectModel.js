@@ -6,10 +6,10 @@ const projectSchema = new Schema(
     featured: { type: String, required: true },
     url: { type: String, required: true },
     description: { type: String, required: true },
-    image: { type: String, required: true },
-    like: { type: Number, required: true },
+    image: { type: String, required: true, default: '/images/comingsoon1.png' },
+    like: { type: Number, required: true, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
 // Database index qo'shish - query performance uchun

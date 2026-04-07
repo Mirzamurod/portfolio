@@ -3,10 +3,10 @@ import mongoose, { Schema } from 'mongoose'
 const experienceSchema = new Schema(
   {
     name: { type: String, required: true },
-    year: { type: String, required: true },
+    year: { type: String, required: true, default: 'Present Day' },
     description: { type: String, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
 // Database index qo'shish - query performance uchun

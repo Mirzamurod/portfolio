@@ -1,3 +1,8 @@
+function formatResumeText(raw: string | undefined): string {
+  if (!raw) return ''
+  return raw.replace(/\r\n/g, '\n').replace(/\\n/g, '\n')
+}
+
 const ResumeCart = ({ h4, years, text }: { h4: string; years: string; text: string }) => {
   return (
     <div className='box-shadow bg-color-1 p-lg-4 p-xl-5 p-xl-5 p-3 time-table borr-6 hover-bg-color-1'>
@@ -12,7 +17,12 @@ const ResumeCart = ({ h4, years, text }: { h4: string; years: string; text: stri
       </div>
       <div className='mt-4 mb-3 border bor-color-dark' />
       <div>
-        <p className='fs-xl-18 fs-18 color-body lh-28'>{text}</p>
+        <p
+          className='fs-xl-18 fs-18 color-body lh-28 text-break'
+          style={{ whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }}
+        >
+          {formatResumeText(text)}
+        </p>
       </div>
     </div>
   )

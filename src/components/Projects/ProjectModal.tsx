@@ -6,6 +6,12 @@ import { BsChevronRight } from 'react-icons/bs'
 import { AiOutlineClose } from 'react-icons/ai'
 import { BiLike } from 'react-icons/bi'
 
+/** DB/JSON da ba'zan literal `\n` saqlanadi; HTML esa faqat haqiqiy yangi qatorni `pre-wrap` bilan ko'rsatadi */
+function formatProjectDescription(raw: string | undefined): string {
+  if (!raw) return ''
+  return raw.replace(/\r\n/g, '\n').replace(/\\n/g, '\n')
+}
+
 const ProjectModal = ({
   data,
   modalBtn,
@@ -21,86 +27,84 @@ const ProjectModal = ({
     'color-primary text-uppercase fs-xl-14 p-medium font-primary d-flex box-shadow bg-color-1 px-4 py-2 borr-6'
 
   return (
-    <Container>
-      <Col xl='12' className='px-xl-4 scroll-auto'>
-        <div className='box-shadow bg-color-1 color-body pb-xl-5 pb-lg-4 borr-10'>
-          <Row>
-            <Col sm='12' className='d-flex justify-content-end'>
-              <div
-                className='p-lg-2 p-md- mt-lg-2 mt-md-1 me-lg-2 me-md-1 border-0 box-shadow bg-color-1 rounded-circle text-center cursor-pointer w-md-35'
-                style={{ width: '40px' }}
-                // @ts-ignore
-                onClick={modalBtn}
-              >
-                <AiOutlineClose />
-              </div>
-            </Col>
-            <div>
-              <Row className='mx-xl-5 mx-md-4 mx-3 pb-lg-0 pb-4'>
-                <Col lg='6' md='12' className='pe-lg-4 ps-lg-3 h-md-280 h-sm-200 mb-lg-0 mb-3'>
-                  <div className='w-100 h-100 borr-10 overflow-hidden position-relative'>
-                    <Image
-                      src={data?.image}
-                      alt={data?.name}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      sizes='(max-width: 768px) 100vw, 50vw'
-                      priority
-                    />
+    <Container fluid className='px-0'>
+      <Row className='g-0 justify-content-center'>
+        <Col xs={12}>
+          <div className='position-relative box-shadow bg-color-1 color-body borr-10 pb-4 pb-xl-5 px-3 px-md-4 px-xl-5 pt-4'>
+            <button
+              type='button'
+              className='position-absolute top-0 start-0 z-3 m-2 m-md-3 border-0 rounded-circle box-shadow bg-color-1 text-center cursor-pointer d-flex align-items-center justify-content-center p-0'
+              style={{ width: 40, height: 40 }}
+              aria-label='Close'
+              onClick={() => modalBtn(false)}
+            >
+              <AiOutlineClose />
+            </button>
+
+            <Row className='align-items-start g-4 g-lg-4 mt-1'>
+              <Col lg={6} md={12}>
+                <div className='w-100 borr-10 overflow-hidden bg-color'>
+                  <Image
+                    src={data?.image}
+                    alt={data?.name}
+                    width={1200}
+                    height={1200}
+                    sizes='(max-width: 991px) 100vw, 50vw'
+                    priority
+                    className='d-block w-100'
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                </div>
+              </Col>
+              <Col lg={6} md={12} style={{ minWidth: 0 }}>
+                <p className='text-capitalize fs-xl-16 p-medium font-secondary mb-2 mb-md-3'>
+                  Featured - {data?.featured}
+                </p>
+                <p className='color-lightn fs-xl-29 text-capitalize p-bold font-secondary mb-3'>
+                  {data?.name}
+                </p>
+                <div
+                  className='font-primary p-regular fs-xl-16 mb-xl-4 text-break'
+                  style={{ whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }}
+                >
+                  {formatProjectDescription(data?.description)}
+                </div>
+                <div className='d-flex flex-wrap gap-2 mt-2'>
+                  <div className='me-sm-4 cursor-pointer'>
+                    <button
+                      disabled={disabled}
+                      className={`bg-transparent border-0 ${btnColor}`}
+                      onClick={() => add_like(data)}
+                    >
+                      <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
+                        like this
+                      </p>
+                      <span>
+                        <BiLike />
+                      </span>
+                    </button>
                   </div>
-                </Col>
-                <Col lg='6' md='12' className='ps-xl-3'>
                   <div>
-                    <div>
-                      <p className='text-capitalize fs-xl-16 p-medium font-secondary'>
-                        Featured - {data?.featured}
+                    <a
+                      href={data?.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className={`text-decoration-none ${btnColor}`}
+                    >
+                      <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
+                        view project
                       </p>
-                    </div>
-                    <div>
-                      <p className='color-lightn fs-xl-29 text-capitalize p-bold font-secondary'>
-                        {data?.name}
-                      </p>
-                    </div>
-                    <div className='font-primary p-regular fs-xl-16 mb-xl-4'>
-                      {data?.description}
-                    </div>
-                    <div className='d-flex mt-2'>
-                      <div className='me-sm-4 cursor-pointer'>
-                        <button
-                          disabled={disabled}
-                          className={`bg-transparent border-0 ${btnColor}`}
-                          onClick={() => add_like(data)}
-                        >
-                          <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
-                            like this
-                          </p>
-                          <span>
-                            <BiLike />
-                          </span>
-                        </button>
-                      </div>
-                      <div>
-                        <a
-                          href={data?.url}
-                          target='_blank'
-                          className={`text-decoration-none ${btnColor}`}
-                        >
-                          <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
-                            view project
-                          </p>
-                          <span>
-                            <BsChevronRight />
-                          </span>
-                        </a>
-                      </div>
-                    </div>
+                      <span>
+                        <BsChevronRight />
+                      </span>
+                    </a>
                   </div>
-                </Col>
-              </Row>
-            </div>
-          </Row>
-        </div>
-      </Col>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </Col>
+      </Row>
     </Container>
   )
 }

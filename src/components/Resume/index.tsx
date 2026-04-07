@@ -12,7 +12,6 @@ import Interview from '@/components/Resume/Components/Interview'
 const Resume = ({ initialExperiences }: { initialExperiences?: TExperience[] }) => {
   const [focus, setFocus] = useState('pro')
   const [experiences, setExperiences] = useState<TExperience[]>(initialExperiences || [])
-  const [loading, setLoading] = useState(!initialExperiences || initialExperiences.length === 0)
 
   const classButton =
     'hover-box-shadow py-4 hover-color-primary focus-color-primary borr-10 text-capitalize hover-button font-primary fs-xl-18 p-medium'
@@ -38,7 +37,7 @@ const Resume = ({ initialExperiences }: { initialExperiences?: TExperience[] }) 
         longName: 'interview',
       },
     ],
-    []
+    [],
   )
 
   const getProducts = async () => {
@@ -46,13 +45,11 @@ const Resume = ({ initialExperiences }: { initialExperiences?: TExperience[] }) 
       .get('/api/experiences')
       .then(res => {
         setExperiences(res.data)
-        setLoading(false)
       })
       .catch(error => {
         if (process.env.NODE_ENV === 'development') {
           console.log(error.message)
         }
-        setLoading(false)
       })
   }
 

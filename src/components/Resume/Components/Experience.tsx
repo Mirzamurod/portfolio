@@ -10,23 +10,23 @@ const Experience = ({ experiences }: { experiences: TExperience[] }) => {
         <Row>
           <Col lg='6' md='12'>
             <div className='time-line ps-lg-5 ps-4 ps-sm-5 pt-5 pe-2'>
-              {experiences.map((item, index) =>
-                index < Math.ceil(experiences.length / 2) ? (
+              {experiences?.map((item, index) =>
+                index % 2 === 0 ? (
                   <div className='mb-5' data-aos='flip-up' key={item._id}>
                     <ResumeCart h4={item.name} years={item.year} text={item.description} />
                   </div>
-                ) : null
+                ) : null,
               )}
             </div>
           </Col>
           <Col lg='6' md='12' className=''>
             <div className='time-line ps-lg-5 ps-4 ps-sm-5 pt-lg-5 pe-2'>
-              {experiences.map((item, index) =>
-                index >= Math.ceil(experiences.length / 2) ? (
+              {experiences?.map((item, index) =>
+                index % 2 === 1 ? (
                   <div className='mb-5' data-aos='flip-up' key={item._id}>
                     <ResumeCart h4={item.name} years={item.year} text={item.description} />
                   </div>
-                ) : null
+                ) : null,
               )}
             </div>
           </Col>

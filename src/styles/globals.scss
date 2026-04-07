@@ -24,11 +24,18 @@ $form-color: #a0a8b3;
 $bg-color-1: linear-gradient(145deg, #1e2024, #23272b);
 $bg-color-2: linear-gradient(to right bottom, #212428, #16181c);
 $skill-bg-color: linear-gradient(145deg, #f02981 0%, #c81901 100%);
-$box-shadow: 10px 10px 19px #1c1e22, -10px -10px 19px #262a2e;
-$box-shadow-2: inset 21px 21px 19px #181a1d, inset -21px -21px 19px #202225;
-$inner-shadow: 1px 4px 2px -3px rgba(0, 0, 0, 0.7) inset,
+$box-shadow:
+  10px 10px 19px #1c1e22,
+  -10px -10px 19px #262a2e;
+$box-shadow-2:
+  inset 21px 21px 19px #181a1d,
+  inset -21px -21px 19px #202225;
+$inner-shadow:
+  1px 4px 2px -3px rgba(0, 0, 0, 0.7) inset,
   -1px -3px 3px -2px rgba(255, 255, 255, 0.2) inset;
-$skill-box-shadow: inset 8px 8px 16px #00000075, inset -8px -8px 16px #383e4575;
+$skill-box-shadow:
+  inset 8px 8px 16px #00000075,
+  inset -8px -8px 16px #383e4575;
 $font-primary: 'Poppins', sans-serif;
 $font-secondary: 'Montserrat', sans-serif;
 $p-light: 300;
@@ -925,14 +932,6 @@ a {
           }
         }
       }
-    }
-
-    .project-modal {
-      z-index: 999 !important;
-      transition: all 0.5s ease-in-out !important;
-      opacity: 1 !important;
-      top: 20% !important;
-      bottom: auto;
     }
   }
 
