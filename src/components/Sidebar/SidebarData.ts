@@ -19,11 +19,11 @@ export const SidebarData = [
     id: '#resume',
     class: '',
   },
-  {
-    name: 'Blog',
-    id: '#blog',
-    class: '',
-  },
+  // {
+  //   name: 'Blog',
+  //   id: '#blog',
+  //   class: '',
+  // },
   {
     name: 'Contact',
     id: '#contact',
