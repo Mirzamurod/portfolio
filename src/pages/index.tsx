@@ -4,6 +4,9 @@ import Script from 'next/script'
 import Main from '@/components/Main'
 import { fetchProjects, fetchExperiences, fetchBlogs } from '@/libs/fetchData'
 
+const SITE_URL = 'https://mirzamurod.uz'
+const OG_IMAGE = `${SITE_URL}/images/logo.png`
+
 export default function Home({ projects, experiences, blogs }: any) {
   useEffect(() => {
     // AOS ni dynamic import qilish - faqat client-side yuklash
@@ -18,13 +21,24 @@ export default function Home({ projects, experiences, blogs }: any) {
         <title>Mirzamurod</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='./images/logo.png' />
+        <link rel='apple-touch-icon' href='./images/logo.png' />
         <meta name='theme-color' content='#000000' />
         <meta name='description' content='Web site maked by Mirzamurod' />
         <meta
           name='google-site-verification'
           content='DyKgwQ0Z-CK17Q6XsIDqVOad0KJq5bWLt0HwAQw9eFA'
         />
-        <link rel='apple-touch-icon' href='./images/logo.png' />
+        {/* Open Graph */}
+        <meta property='og:title' content='Mirzamurod' />
+        <meta property='og:description' content='Web site maked by Mirzamurod' />
+        <meta property='og:image' content={OG_IMAGE} />
+        <meta property='og:url' content={SITE_URL} />
+        <meta property='og:type' content='website' />
+        {/* Twitter */}
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content='Mirzamurod' />
+        <meta name='twitter:description' content='Web site maked by Mirzamurod' />
+        <meta name='twitter:image' content={OG_IMAGE} />
         {/* Google Analytics Script - Performance optimization */}
         <Script
           src='https://www.googletagmanager.com/gtag/js?id=G-XKLBHLPF8M'
