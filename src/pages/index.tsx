@@ -28,11 +28,12 @@ export default function Home({ projects, experiences, blogs }: any) {
           name='google-site-verification'
           content='DyKgwQ0Z-CK17Q6XsIDqVOad0KJq5bWLt0HwAQw9eFA'
         />
+        <link rel='canonical' href={`${SITE_URL}/`} />
         {/* Open Graph */}
         <meta property='og:title' content='Mirzamurod' />
         <meta property='og:description' content='Web site maked by Mirzamurod' />
         <meta property='og:image' content={OG_IMAGE} />
-        <meta property='og:url' content={SITE_URL} />
+        <meta property='og:url' content={`${SITE_URL}/`} />
         <meta property='og:type' content='website' />
         {/* Twitter */}
         <meta name='twitter:card' content='summary_large_image' />

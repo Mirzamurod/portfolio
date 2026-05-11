@@ -22,13 +22,17 @@ const Icons = (props: any) => {
       </div>
       <div className={`d-flex ${props.contact ? 'mb-1' : 'mb-4'}`}>
         <div className='m-10-12 me-2'>
-          <a href={others?.github}>
+          <a href={others.github} aria-label="Mirzamurod on GitHub">
             <div
               className={`${
                 props.sidebar ? 'w-h-51' : 'w-h-60 box-shadow'
               } bg-color-1 text-center ${props.sidebar ? 'pt-3' : 'pt-xl-20'}`}
             >
-              <span className={`${props.sidebar ? 'icon-size' : ''} icon github`} />
+              <span
+                className={`${props.sidebar ? 'icon-size' : ''} icon github`}
+                aria-hidden='true'
+              />
+              <span className='visually-hidden'>GitHub — Mirzamurod</span>
             </div>
           </a>
         </div>
@@ -44,24 +48,32 @@ const Icons = (props: any) => {
           </a>
         </div> */}
         <div className='m-10-12 mx-2'>
-          <a href={others?.telegram}>
+          <a href={others.telegram} aria-label="Contact Mirzamurod on Telegram">
             <div
               className={`${
                 props.sidebar ? 'w-h-51' : 'w-h-60 box-shadow'
               } bg-color-1 text-center ${props.sidebar ? 'pt-3' : 'pt-xl-20'}`}
             >
-              <span className={`${props.sidebar ? 'icon-size' : ''} icon telegram`} />
+              <span
+                className={`${props.sidebar ? 'icon-size' : ''} icon telegram`}
+                aria-hidden='true'
+              />
+              <span className='visually-hidden'>Telegram — Mirzamurod</span>
             </div>
           </a>
         </div>
         <div className='m-10-12 ms-2'>
-          <a href={others?.linkedin}>
+          <a href={others.linkedin} aria-label="Mirzamurod on LinkedIn">
             <div
               className={`${
                 props.sidebar ? 'w-h-51' : 'w-h-60 box-shadow'
               } bg-color-1 text-center ${props.sidebar ? 'pt-3' : 'pt-xl-20'}`}
             >
-              <span className={`${props.sidebar ? 'icon-size' : ''} icon linkedin`} />
+              <span
+                className={`${props.sidebar ? 'icon-size' : ''} icon linkedin`}
+                aria-hidden='true'
+              />
+              <span className='visually-hidden'>LinkedIn — Mirzamurod</span>
             </div>
           </a>
         </div>
