@@ -74,13 +74,15 @@ const Resume = ({ initialExperiences }: { initialExperiences?: TExperience[] }) 
         <Row className='color-white text-center box-shadow bg-color-1 borr-10 mt-xl-5 mt-lg-5 mt-md-4 '>
           {tabs.map(nma => (
             <Col md={4} className='px-0' key={nma.shortName}>
-              <div
-                className={`${classButton} ${focus === nma.shortName ? focusButton : ''}`}
+              <button
+                type='button'
                 onClick={() => setFocus(nma.shortName)}
-                style={{ cursor: 'pointer' }}
+                aria-pressed={focus === nma.shortName}
+                aria-label={`Show ${nma.longName}`}
+                className={`${classButton} ${focus === nma.shortName ? focusButton : ''} w-100 border-0 bg-transparent`}
               >
                 {nma.longName}
-              </div>
+              </button>
             </Col>
           ))}
         </Row>

@@ -36,33 +36,50 @@ const Contact = () => {
     formState: { errors },
     setValue,
   } = useForm()
-  const [snack, setSnack] = useState(false)
+  const [snack, setSnack] = useState<'hidden' | 'success' | 'error'>('hidden')
+  const [snackMessage, setSnackMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
   const class1 = 'font-secondary color-lightn w-100 mb-3 borr-6'
 
-  const onSubmit = (data: IData) => {
+  const showSnack = (type: 'success' | 'error', message: string) => {
+    setSnack(type)
+    setSnackMessage(message)
+    setTimeout(() => setSnack('hidden'), 5000)
+  }
+
+  const onSubmit = async (data: IData) => {
     setLoading(true)
-    let my_text = `
-Name: ${data.name} %0A
-Number: ${data.phone} %0A
-Email: ${data?.email} %0A
-Subject: ${data.subject} %0A
-Message: ${data.message} %0A`
-    const url = `https://api.telegram.org/bot${'8162622071:AAGisU80sm3Mv1LuDqWghN5S7A0OXoXsUIE'}/sendMessage?chat_id=${'-1001300088307'}&text=${my_text}` // &parse_mode = html => teglarini my_text ichida ishlatishga yordam beradi. Lekin ishlamadi warning ham bermadi!!!
-    let api = new XMLHttpRequest()
-    api.open('GET', url, true)
-    api.send()
-    setLoading(false)
-    setSnack(true)
-    setValue('name', '')
-    setValue('phone', '')
-    setValue('email', '')
-    setValue('subject', '')
-    setValue('message', '')
-    setTimeout(() => {
-      setSnack(false)
-    }, 4000)
+    setSnack('hidden')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        showSnack(
+          'error',
+          result.message || 'Could not send your message. Please try again.',
+        )
+        return
+      }
+
+      setValue('name', '')
+      setValue('phone', '')
+      setValue('email', '')
+      setValue('subject', '')
+      setValue('message', '')
+      showSnack('success', 'Message sent successfully!')
+    } catch {
+      showSnack('error', 'Network error. Please check your connection and try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -87,7 +104,7 @@ Message: ${data.message} %0A`
                 </div>
                 <CardBody className='px-0 pb-0'>
                   <div>
-                    <CardTitle tag='h4' className='color-lightn fs-xl-29 p-bold font-secondary'>
+                    <CardTitle tag='h3' className='color-lightn fs-xl-29 p-bold font-secondary'>
                       Mirzamurod
                     </CardTitle>
                     <CardTitle tag='p' className='color-body fs-xl-18 font-primary mt-2'>
@@ -106,13 +123,19 @@ Message: ${data.message} %0A`
                     <CardText tag='span'>
                       <div className='d-flex'>
                         <div className='color-body me-2 fs-xl-18'>Phone:</div>
-                        <Link url='tel:998946565706' words='+998 94 656-57-06' contact />
+                        <Link
+                          url='tel:998946565706'
+                          words='+998 94 656-57-06'
+                          ariaLabel='Call Mirzamurod'
+                          contact
+                        />
                       </div>
                       <div className='d-flex text-truncate'>
                         <div className='color-body me-2 fs-xl-18'>Email:</div>
                         <Link
                           url='mailto:mirzamurodrahimberdiyev@gmail.com'
-                          words='mirzamurodrahimberdiyev@gamil.com'
+                          words='mirzamurodrahimberdiyev@gmail.com'
+                          ariaLabel='Email Mirzamurod'
                           contact
                         />
                       </div>
@@ -251,17 +274,21 @@ Message: ${data.message} %0A`
         </Row>
       </Container>
       <div
-        className={`snack-success text-center d-flex item-center ${
-          snack ? 'snack-right-10' : 'snack-right--100'
-        }`}
+        className={`text-center d-flex item-center ${
+          snack === 'success' ? 'snack-success' : snack === 'error' ? 'snack-error' : ''
+        } ${snack !== 'hidden' ? 'snack-right-10' : 'snack-right--100'}`}
+        role='alert'
+        aria-live='polite'
       >
-        <div>
-          <svg viewBox='0 0 26 26' aria-hidden='true' width='18px' height='18px' fill='#ffffff'>
-            <path d='M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2, 4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0, 0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z' />
-          </svg>
-        </div>
-        <p className='color-white ps-1' style={{ paddingTop: '1px' }}>
-          Message successfully sended!!!
+        {snack === 'success' ? (
+          <div aria-hidden='true'>
+            <svg viewBox='0 0 26 26' width='18px' height='18px' fill='#ffffff'>
+              <path d='M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2, 4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0, 0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z' />
+            </svg>
+          </div>
+        ) : null}
+        <p className='color-white ps-1 mb-0' style={{ paddingTop: '1px' }}>
+          {snackMessage}
         </p>
       </div>
     </div>

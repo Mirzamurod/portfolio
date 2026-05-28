@@ -1,0 +1,325 @@
+// Utility classes (Bootstrap overrides — !important retained where needed)
+.bg-color {
+  background-color: var(--color-surface) !important;
+}
+
+.form-color {
+  color: var(--color-form) !important;
+}
+
+.color-primary {
+  color: var(--color-accent) !important;
+}
+
+.color-body {
+  color: var(--color-text-secondary) !important;
+}
+
+.color-lightn {
+  color: var(--color-text-primary) !important;
+}
+
+.color-subtitle {
+  color: var(--color-accent-subtitle) !important;
+}
+
+.color {
+  color: var(--color-text-muted) !important;
+}
+
+.color-link {
+  color: var(--color-text-link) !important;
+}
+
+.color-years {
+  color: var(--color-text-years) !important;
+}
+
+.color-lighter {
+  color: var(--color-text-lighter) !important;
+}
+
+.color-white {
+  color: var(--color-text-on-dark) !important;
+}
+
+.skill-bg-color {
+  background-image: var(--gradient-skill) !important;
+}
+
+.hover-color-white:hover {
+  color: var(--color-text-on-dark) !important;
+}
+
+.hover-color-primary:hover {
+  color: var(--color-accent) !important;
+}
+
+.hover-color-body:hover {
+  color: var(--color-text-secondary) !important;
+}
+
+.hover-color-lightn:hover {
+  color: var(--color-text-primary) !important;
+}
+
+.hover-color-subtitle:hover {
+  color: var(--color-accent-subtitle) !important;
+}
+
+.hover-color:hover {
+  color: var(--color-text-muted) !important;
+}
+
+.hover-color-link:hover {
+  color: var(--color-text-link) !important;
+}
+
+.hover-color-years:hover {
+  color: var(--color-text-years) !important;
+}
+
+.hover-form-color:hover {
+  color: var(--color-form) !important;
+}
+
+.bg-color-1 {
+  background-image: var(--gradient-surface-elevated) !important;
+}
+
+.hover-bg-color-2:hover {
+  background-color: #212427 !important;
+}
+
+.hover-bg-color-1:hover {
+  background-image: var(--gradient-surface-alt) !important;
+}
+
+.box-shadow {
+  box-shadow: var(--shadow-neumorphic) !important;
+}
+
+.hover-box-shadow:hover {
+  box-shadow: var(--shadow-neumorphic) !important;
+}
+
+.skill-box-shadow {
+  box-shadow: var(--shadow-skill) !important;
+}
+
+.box-shadow-2 {
+  box-shadow: var(--shadow-inset) !important;
+}
+
+.font-primary {
+  font-family: var(--font-primary) !important;
+}
+
+.font-secondary {
+  font-family: var(--font-secondary) !important;
+}
+
+.p-light {
+  font-weight: var(--font-weight-light) !important;
+}
+
+.p-regular {
+  font-weight: var(--font-weight-regular) !important;
+}
+
+.p-medium {
+  font-weight: var(--font-weight-medium) !important;
+}
+
+.p-semi-bold {
+  font-weight: var(--font-weight-semibold) !important;
+}
+
+.p-bold {
+  font-weight: var(--font-weight-bold) !important;
+}
+
+.p-extra-bold {
+  font-weight: var(--font-weight-extrabold) !important;
+}
+
+.p-black {
+  font-weight: var(--font-weight-black) !important;
+}
+
+.fs-xl-60 {
+  font-size: var(--text-display) !important;
+}
+
+.fs-xl-48 {
+  font-size: var(--text-6xl) !important;
+}
+
+.fs-xl-36 {
+  font-size: var(--text-5xl) !important;
+}
+
+.fs-xl-32 {
+  font-size: var(--text-4xl) !important;
+}
+
+.fs-xl-29 {
+  font-size: var(--text-3xl) !important;
+}
+
+.fs-xl-24 {
+  font-size: var(--text-2xl) !important;
+}
+
+.fs-xl-22 {
+  font-size: var(--text-xl) !important;
+}
+
+.fs-xl-20 {
+  font-size: var(--text-lg) !important;
+}
+
+.fs-xl-18 {
+  font-size: var(--text-md) !important;
+}
+
+.fs-xl-17 {
+  font-size: 17px !important;
+}
+
+.fs-xl-16 {
+  font-size: var(--text-base) !important;
+}
+
+.fs-xl-14 {
+  font-size: var(--text-sm) !important;
+}
+
+.fs-xl-12 {
+  font-size: var(--text-xs) !important;
+}
+
+.pt-xl-20 {
+  padding-top: var(--space-4) !important;
+}
+
+.borr-6 {
+  border-radius: var(--radius-sm);
+}
+
+.borr-10 {
+  border-radius: var(--radius-md);
+}
+
+.borr-20 {
+  border-radius: var(--radius-lg);
+}
+
+.bor-color-dark {
+  border-color: var(--color-border-dark) !important;
+}
+
+.px-xl-25 {
+  padding-right: var(--space-5) !important;
+  padding-left: var(--space-5) !important;
+}
+
+.pr-xl-25 {
+  padding-right: var(--space-5) !important;
+}
+
+.pl-xl-25 {
+  padding-left: var(--space-5) !important;
+}
+
+.my-xl-100 {
+  margin-top: var(--space-section) !important;
+  margin-bottom: var(--space-section) !important;
+}
+
+.page {
+  z-index: 998 !important;
+  background: var(--color-accent) !important;
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+@media (min-width: 1200px) {
+  .p-xl-30 {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 575px) {
+  .fs-60 {
+    font-size: 30px !important;
+  }
+
+  .fs-48 {
+    font-size: 25px !important;
+  }
+
+  .fs-24 {
+    font-size: 15px !important;
+  }
+
+  .fs-18 {
+    font-size: var(--text-sm) !important;
+  }
+
+  .fs-16 {
+    font-size: var(--text-sm) !important;
+  }
+
+  .fs-14 {
+    font-size: 10px !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .fs-sm-60 {
+    font-size: 42px !important;
+  }
+
+  .fs-sm-48 {
+    font-size: 42px !important;
+  }
+
+  .fs-sm-14 {
+    font-size: var(--text-sm) !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .fs-md-60 {
+    font-size: 40px !important;
+  }
+
+  .fs-md-36 {
+    font-size: 30px !important;
+  }
+
+  .fs-md-24 {
+    font-size: 21px !important;
+  }
+
+  .fs-md-16 {
+    font-size: var(--text-xs) !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .fs-lg-60 {
+    font-size: 38px !important;
+  }
+
+  .fs-lg-48 {
+    font-size: 37px !important;
+  }
+
+  .fs-lg-24 {
+    font-size: var(--text-xl) !important;
+  }
+}

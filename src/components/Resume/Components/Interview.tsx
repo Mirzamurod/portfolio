@@ -1,7 +1,7 @@
 const Interview = () => {
   return (
     <div>
-      <h1 className='text-uppercase'>coming soon</h1>
+      <h3 className='text-uppercase color-lightn fs-xl-24'>coming soon</h3>
     </div>
   )
 }

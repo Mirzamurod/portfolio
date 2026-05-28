@@ -16,7 +16,6 @@ export default function Document() {
         <link rel='preload' href='/images/logo.png' as='image' />
         {/* DNS prefetch for external services */}
         <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
-        <link rel='dns-prefetch' href='https://api.telegram.org' />
         <link rel='dns-prefetch' href='https://prgutxuaf0.ufs.sh' />
       </Head>
       <body>

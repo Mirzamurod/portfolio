@@ -1,11 +1,13 @@
 import type { TProject } from '@/types/project'
 
-import { useEffect, useState, useCallback, memo } from 'react'
+import { useCallback, useEffect, useState, memo } from 'react'
+import { useEscapeKey } from '@/hooks/useEscapeKey'
 import Image from 'next/image'
 import { Card, CardBody, Col, Container, Row } from 'reactstrap'
 import axios from 'axios'
 import { Title } from '@/components/Title'
-import { Heart } from '@/components/Others/Heart'
+import { BiLike } from 'react-icons/bi'
+import { BsChevronRight } from 'react-icons/bs'
 import ProjectModal from '@/components/Projects/ProjectModal'
 import Loader from '@/components/Projects/Loader'
 
@@ -29,7 +31,9 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
     getFingerprint()
   }, [])
 
-  const modalBtn = () => setModal(!modal)
+  const closeModal = useCallback(() => setModal(false), [])
+
+  useEscapeKey(closeModal, modal)
 
   const openProjectModal = (project: TProject) => {
     setData(project)
@@ -113,80 +117,84 @@ const Project = ({ initialProjects }: { initialProjects?: TProject[] }) => {
                   data-aos={index % 2 === 0 ? 'fade-up' : 'fade-down'}
                   data-aos-delay={index + '00'}
                 >
-                  <div className='h-100'>
-                    <div
-                      className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-30 borr-20 hover-card h-100 cursor-pointer'
-                      onClick={() => openProjectModal(project)}
-                      role='button'
-                      tabIndex={0}
-                      onKeyDown={e => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault()
-                          openProjectModal(project)
-                        }
-                      }}
-                    >
-                      <Card className='bg-transparent border-0 h-100'>
-                        <div className='w-100 overflow-hidden mx-auto borr-10'>
-                          <Image
-                            src={project.image}
-                            alt={project.name}
-                            width={400}
-                            height={250}
-                            className='w-100'
-                            style={{ objectFit: 'cover', height: '250px' }}
-                            loading='lazy'
-                            placeholder='blur'
-                            blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
-                          />
-                        </div>
-                        <CardBody className='p-0'>
-                          <div className='d-flex my-3 justify-content-between'>
-                            <p className='color-primary text-decoration-none p-medium font-primary fs-xl-12 text-uppercase'>
-                              {project.featured}
-                            </p>
-                            <button
-                              type='button'
-                              className='bg-transparent border-0'
-                              disabled={disabled}
-                              onClick={e => {
-                                e.stopPropagation()
-                                add_like(project)
-                              }}
-                            >
-                              <Heart rating={project.like} />
-                            </button>
-                          </div>
-                          <div className='hover-commet'>
-                            <div className='fs-xl-24 fs-md-24 color-lightn p-semi-bold text-decoration-none'>
-                              {project.name}
-                            </div>
-                          </div>
-                        </CardBody>
-                      </Card>
+                  <article className='bg-color-1 box-shadow hover-bg-color-1 p-sm-4 p-4 p-lg-4 p-xl-30 borr-20 hover-card project-card h-100'>
+                    <div className='w-100 overflow-hidden mx-auto borr-10'>
+                      <Image
+                        src={project.image}
+                        alt={project.name}
+                        width={400}
+                        height={250}
+                        className='w-100 project-card-image'
+                        loading='lazy'
+                        placeholder='blur'
+                        blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
+                      />
                     </div>
-                  </div>
+                    <Card className='bg-transparent border-0 flex-grow-1 d-flex flex-column'>
+                      <CardBody className='p-0 d-flex flex-column flex-grow-1'>
+                        <p className='project-card-featured mb-0'>{project.featured}</p>
+                        <h3 className='project-card-title'>{project.name}</h3>
+                        <div className='project-card-actions'>
+                          <button
+                            type='button'
+                            className='project-action-btn'
+                            onClick={() => openProjectModal(project)}
+                          >
+                            View details
+                            <BsChevronRight aria-hidden />
+                          </button>
+                          {project.url ? (
+                            <a
+                              href={project.url}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                              className='project-action-btn project-action-btn--ghost'
+                            >
+                              Live site
+                            </a>
+                          ) : null}
+                          <button
+                            type='button'
+                            className='project-action-btn project-action-btn--ghost'
+                            disabled={disabled}
+                            aria-label={`Like project ${project.name}`}
+                            onClick={() => add_like(project)}
+                          >
+                            <BiLike aria-hidden />
+                            {project.like}
+                          </button>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </article>
                 </Col>
               ))}
         </Row>
       </Container>
       {modal ? (
         <div
-          className='project-modal-overlay position-fixed top-0 start-0 end-0 bottom-0 w-100 min-vh-100 d-flex justify-content-center overflow-auto overflow-x-hidden bg-color px-3 px-md-4'
+          className='project-modal-overlay position-fixed top-0 start-0 end-0 bottom-0 w-100 min-vh-100 d-flex justify-content-center overflow-auto overflow-x-hidden px-3 px-md-4'
           style={{
             zIndex: 999,
             paddingTop: 'max(2rem, calc(1rem + env(safe-area-inset-top, 0px)))',
             paddingBottom: 'max(2rem, calc(1rem + env(safe-area-inset-bottom, 0px)))',
           }}
-          onClick={() => setModal(!modal)}
         >
           <div
-            className='w-100 flex-shrink-0 my-auto'
+            className='position-fixed top-0 start-0 end-0 bottom-0 bg-color'
+            style={{ opacity: 0.92 }}
+            onClick={closeModal}
+            aria-hidden='true'
+          />
+          <div
+            className='w-100 flex-shrink-0 my-auto position-relative'
             style={{ maxWidth: 1140 }}
-            onClick={e => e.stopPropagation()}
+            role='dialog'
+            aria-modal='true'
+            aria-labelledby='project-modal-title'
           >
             <ProjectModal
-              modalBtn={modalBtn}
+              modalBtn={closeModal}
               data={data!}
               add_like={add_like}
               disabled={disabled}

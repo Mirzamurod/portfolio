@@ -79,6 +79,9 @@ const Main = ({
 }) => {
   return (
     <div>
+      <a href='#header' className='skip-link'>
+        Skip to main content
+      </a>
       <ProgressBar />
       <Sidebar />
       <Header />

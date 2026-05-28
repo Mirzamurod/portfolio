@@ -1,22 +1,20 @@
-export const Title = (props: any) => {
+import styles from './Title.module.scss'
+
+type TitleProps = {
+  subtitle: string
+  title: string
+  center?: boolean
+  titleTag?: 'h1' | 'h2' | 'h3'
+}
+
+export const Title = ({ subtitle, title, center, titleTag = 'h2' }: TitleProps) => {
+  const HeadingTag = titleTag
+  const alignClass = center ? styles.center : styles.start
+
   return (
     <div>
-      <p
-        className={`color-subtitle text-uppercase fs-xl-14 fs-14 fs-sm-14 p-medium font-secondary ${
-          props.center ? 'text-center' : 'text-start'
-        }`}
-        style={{ lineHeight: '14px', letterSpacing: '1px' }}
-      >
-        {props.subtitle}
-      </p>
-      <p
-        className={`fs-xl-60 fs-sm-60 fs-lg-60 fs-md-60 fs-60 p-bold color-lightn font-secondary mb-3 ${
-          props.center ? 'text-center' : 'text-start'
-        }`}
-        style={{ lineHeight: 1.2, marginTop: '15px', textTransform: 'capitalize' }}
-      >
-        {props.title}
-      </p>
+      <p className={`${styles.subtitle} ${alignClass}`}>{subtitle}</p>
+      <HeadingTag className={`${styles.title} ${alignClass}`}>{title}</HeadingTag>
     </div>
   )
 }

@@ -32,10 +32,10 @@ const Header = () => {
               </div>
               <div>
                 <h1 className='text-white p-bold font-secondary'>
-                  <div className='fs-xl-60 fs-sm-60 fs-60 fs-lg-60'>
+                  <span className='d-block fs-xl-60 fs-sm-60 fs-60 fs-lg-60'>
                     Hi, I'm <span className='color-primary'>Mirzamurod</span>
-                  </div>
-                  <div className='d-flex fs-xl-48 fs-lg-48 fs-sm-48 fs-48'>
+                  </span>
+                  <span className='d-flex fs-xl-48 fs-lg-48 fs-sm-48 fs-48'>
                     <span className='me-3'>a</span>
                     <Typewriter
                       options={{
@@ -46,7 +46,7 @@ const Header = () => {
                         deleteSpeed: 80,
                       }}
                     />
-                  </div>
+                  </span>
                 </h1>
               </div>
               <div>
@@ -73,6 +73,7 @@ const Header = () => {
                           href='/myresume/Mirzamurod.pdf'
                           className='box-shadow bg-color-1 border-0 borr-10 py-3 px-5 color-primary font-primary text-decoration-none p-medium'
                           download='Mirzamurod Rahimberdiyev'
+                          aria-label='Download Mirzamurod resume PDF'
                         >
                           my resume
                         </a>

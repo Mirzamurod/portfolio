@@ -44,7 +44,7 @@ const Blog = ({ text: initialText }: { text: TText | null }) => {
             priority
           />
           <p className='m-0 fs-xl-14 py-3'>{format(text.createdAt, 'd MMM yyyy')}</p>
-          <h2 className='fs-xl-32'>{text.blog.title}</h2>
+          <h1 className='fs-xl-32 color-lightn'>{text.blog.title}</h1>
           <div dangerouslySetInnerHTML={{ __html: text.text }} />
         </Container>
       ) : null}

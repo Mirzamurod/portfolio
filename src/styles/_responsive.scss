@@ -1,0 +1,38 @@
+// Breakpoint QA helpers (360px mobile, 768px tablet, 1440px desktop)
+
+@media (max-width: 575px) {
+  #header,
+  #project,
+  #resume,
+  #contact {
+    .px-xl-25 {
+      padding-right: var(--space-3) !important;
+      padding-left: var(--space-3) !important;
+    }
+  }
+
+  .my-xl-100 {
+    margin-top: var(--space-6) !important;
+    margin-bottom: var(--space-6) !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+  #header,
+  #project,
+  #resume,
+  #contact {
+    .px-xl-25 {
+      padding-right: var(--space-4) !important;
+      padding-left: var(--space-4) !important;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  #project .container,
+  #resume .container,
+  #contact .container {
+    max-width: 1320px;
+  }
+}

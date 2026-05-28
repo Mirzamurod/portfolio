@@ -1,0 +1,144 @@
+// Visual polish — lighter motion, section rhythm, shared card actions
+
+.section-divider {
+  margin: var(--space-section) 0;
+  border: 0;
+  border-top: 1px solid var(--color-border-dark);
+  opacity: 1;
+}
+
+#header,
+#project,
+#resume,
+#contact {
+  scroll-margin-top: 7rem;
+}
+
+#project,
+#resume,
+#contact {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.project-card-title {
+  color: var(--color-text-primary);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-secondary);
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.project-card-featured {
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.project-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+.project-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background-image: var(--gradient-surface-elevated);
+  box-shadow: var(--shadow-neumorphic);
+  color: var(--color-accent);
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    color: var(--color-text-on-dark);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.project-action-btn--ghost {
+  background-image: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+// Lighter card / image hovers (override legacy 0.5s "all" transitions)
+#project,
+#blog {
+  .hover-card {
+    img,
+    .project-card-image {
+      transition: transform 0.25s ease !important;
+    }
+
+    &:hover img,
+    &:hover .project-card-image {
+      transform: scale(1.04) !important;
+    }
+  }
+}
+
+#contact {
+  .hover-img {
+    img {
+      transition: transform 0.25s ease !important;
+    }
+
+    &:hover img {
+      transform: scale(1.04) !important;
+    }
+  }
+}
+
+#icons a div::before {
+  transition: transform 0.3s ease !important;
+}
+
+#sidebar.scroll_navbar {
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease !important;
+}
+
+@media (max-width: 575px) {
+  .section-divider {
+    margin: var(--space-6) 0;
+  }
+}

@@ -21,11 +21,8 @@ const ProjectModal = ({
   data: TProject
   disabled: boolean
   modalBtn: (value: boolean) => void
-  add_like: (value: any) => any
+  add_like: (value: TProject) => void
 }) => {
-  const btnColor =
-    'color-primary text-uppercase fs-xl-14 p-medium font-primary d-flex box-shadow bg-color-1 px-4 py-2 borr-6'
-
   return (
     <Container fluid className='px-0'>
       <Row className='g-0 justify-content-center'>
@@ -35,7 +32,7 @@ const ProjectModal = ({
               type='button'
               className='position-absolute top-0 start-0 z-3 m-2 m-md-3 border-0 rounded-circle box-shadow bg-color-1 text-center cursor-pointer d-flex align-items-center justify-content-center p-0'
               style={{ width: 40, height: 40 }}
-              aria-label='Close'
+              aria-label='Close project details'
               onClick={() => modalBtn(false)}
             >
               <AiOutlineClose />
@@ -57,48 +54,41 @@ const ProjectModal = ({
                 </div>
               </Col>
               <Col lg={6} md={12} style={{ minWidth: 0 }}>
-                <p className='text-capitalize fs-xl-16 p-medium font-secondary mb-2 mb-md-3'>
-                  Featured - {data?.featured}
-                </p>
-                <p className='color-lightn fs-xl-29 text-capitalize p-bold font-secondary mb-3'>
+                <p className='project-card-featured mb-2'>Featured — {data?.featured}</p>
+                <h3
+                  id='project-modal-title'
+                  className='color-lightn fs-xl-29 text-capitalize p-bold font-secondary mb-3'
+                >
                   {data?.name}
-                </p>
+                </h3>
                 <div
                   className='font-primary p-regular fs-xl-16 mb-xl-4 text-break'
                   style={{ whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }}
                 >
                   {formatProjectDescription(data?.description)}
                 </div>
-                <div className='d-flex flex-wrap gap-2 mt-2'>
-                  <div className='me-sm-4 cursor-pointer'>
-                    <button
-                      disabled={disabled}
-                      className={`bg-transparent border-0 ${btnColor}`}
-                      onClick={() => add_like(data)}
-                    >
-                      <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
-                        like this
-                      </p>
-                      <span>
-                        <BiLike />
-                      </span>
-                    </button>
-                  </div>
-                  <div>
+                <div className='project-card-actions mt-2'>
+                  {data?.url ? (
                     <a
-                      href={data?.url}
+                      href={data.url}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className={`text-decoration-none ${btnColor}`}
+                      className='project-action-btn'
                     >
-                      <p className='mb-0 me-md-1' style={{ marginTop: '1px' }}>
-                        view project
-                      </p>
-                      <span>
-                        <BsChevronRight />
-                      </span>
+                      Live site
+                      <BsChevronRight aria-hidden />
                     </a>
-                  </div>
+                  ) : null}
+                  <button
+                    type='button'
+                    disabled={disabled}
+                    className='project-action-btn project-action-btn--ghost'
+                    aria-label={`Like project ${data?.name}`}
+                    onClick={() => add_like(data)}
+                  >
+                    <BiLike aria-hidden />
+                    Like · {data?.like}
+                  </button>
                 </div>
               </Col>
             </Row>

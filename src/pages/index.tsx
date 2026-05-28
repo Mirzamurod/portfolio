@@ -11,7 +11,7 @@ export default function Home({ projects, experiences, blogs }: any) {
   useEffect(() => {
     // AOS ni dynamic import qilish - faqat client-side yuklash
     import('aos').then(AOS => {
-      AOS.default.init({ duration: 1000 })
+      AOS.default.init({ duration: 700, once: true, offset: 48 })
     })
   }, [])
 
@@ -23,7 +23,10 @@ export default function Home({ projects, experiences, blogs }: any) {
         <link rel='icon' href='./images/logo.png' />
         <link rel='apple-touch-icon' href='./images/logo.png' />
         <meta name='theme-color' content='#000000' />
-        <meta name='description' content='Web site maked by Mirzamurod' />
+        <meta
+          name='description'
+          content='Mirzamurod — Full-stack developer (React, Next.js, Node.js). Portfolio, experience, and contact.'
+        />
         <meta
           name='google-site-verification'
           content='DyKgwQ0Z-CK17Q6XsIDqVOad0KJq5bWLt0HwAQw9eFA'
@@ -31,14 +34,20 @@ export default function Home({ projects, experiences, blogs }: any) {
         <link rel='canonical' href={`${SITE_URL}/`} />
         {/* Open Graph */}
         <meta property='og:title' content='Mirzamurod' />
-        <meta property='og:description' content='Web site maked by Mirzamurod' />
+        <meta
+          property='og:description'
+          content='Full-stack developer building fast, maintainable web apps with React, Next.js, and Node.js.'
+        />
         <meta property='og:image' content={OG_IMAGE} />
         <meta property='og:url' content={`${SITE_URL}/`} />
         <meta property='og:type' content='website' />
         {/* Twitter */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:title' content='Mirzamurod' />
-        <meta name='twitter:description' content='Web site maked by Mirzamurod' />
+        <meta
+          name='twitter:description'
+          content='Full-stack developer building fast, maintainable web apps with React, Next.js, and Node.js.'
+        />
         <meta name='twitter:image' content={OG_IMAGE} />
         {/* Google Analytics Script - Performance optimization */}
         <Script

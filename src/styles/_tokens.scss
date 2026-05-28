@@ -1,0 +1,106 @@
+// Design tokens — semantic CSS variables + Sass aliases for legacy SCSS
+:root {
+  /* Colors */
+  --color-accent: #ff014f;
+  --color-accent-subtitle: #f9004d;
+  --color-text-primary: #c3cfde;
+  --color-text-secondary: #9ca5b1;
+  --color-text-muted: #a8b0bb;
+  --color-text-link: #c4cfde;
+  --color-text-on-dark: #ffffff;
+  --color-text-lighter: #ced0d4;
+  --color-text-years: #8b939e;
+  --color-form: #b0b8c3;
+  --color-surface: #212428;
+  --color-surface-hover: #191a1f;
+  --color-surface-overlay: #212428de;
+  --color-surface-drawer: #191b1e;
+  --color-border-dark: #121415;
+  --color-timeline: #17191c;
+  --color-timeline-dot: #222529;
+  --color-success: #00aa54;
+  --color-error: #c62828;
+  --color-placeholder: #6d7682;
+
+  /* Gradients */
+  --gradient-surface-elevated: linear-gradient(145deg, #1e2024, #23272b);
+  --gradient-surface-alt: linear-gradient(to right bottom, #212428, #16181c);
+  --gradient-skill: linear-gradient(145deg, #f02981 0%, #c81901 100%);
+
+  /* Shadows */
+  --shadow-neumorphic: 10px 10px 19px #1c1e22, -10px -10px 19px #262a2e;
+  --shadow-inset: inset 21px 21px 19px #181a1d, inset -21px -21px 19px #202225;
+  --shadow-inner-input: 1px 4px 2px -3px rgba(0, 0, 0, 0.7) inset,
+    -1px -3px 3px -2px rgba(255, 255, 255, 0.2) inset;
+  --shadow-skill: inset 8px 8px 16px #00000075, inset -8px -8px 16px #383e4575;
+
+  /* Typography */
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Montserrat', sans-serif;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Type scale */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 18px;
+  --text-lg: 20px;
+  --text-xl: 22px;
+  --text-2xl: 24px;
+  --text-3xl: 29px;
+  --text-4xl: 32px;
+  --text-5xl: 36px;
+  --text-6xl: 45px;
+  --text-display: 55px;
+
+  /* Spacing scale */
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 15px;
+  --space-4: 20px;
+  --space-5: 25px;
+  --space-6: 30px;
+  --space-section: 100px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-skill: 14px;
+}
+
+// Sass aliases (backward compatible with existing partials)
+$bg-color: var(--color-surface);
+$bg-color-hover: var(--color-surface-hover);
+$color-primary: var(--color-accent);
+$color-lightn: var(--color-text-primary);
+$color-lighter: var(--color-text-lighter);
+$color-subtitle: var(--color-accent-subtitle);
+$color: var(--color-text-muted);
+$color-white: var(--color-text-on-dark);
+$color-body: var(--color-text-secondary);
+$color-link: var(--color-text-link);
+$color-years: var(--color-text-years);
+$form-color: var(--color-form);
+$bg-color-1: var(--gradient-surface-elevated);
+$bg-color-2: var(--gradient-surface-alt);
+$skill-bg-color: var(--gradient-skill);
+$box-shadow: var(--shadow-neumorphic);
+$box-shadow-2: var(--shadow-inset);
+$inner-shadow: var(--shadow-inner-input);
+$skill-box-shadow: var(--shadow-skill);
+$font-primary: var(--font-primary);
+$font-secondary: var(--font-secondary);
+$p-light: var(--font-weight-light);
+$p-regular: var(--font-weight-regular);
+$p-medium: var(--font-weight-medium);
+$p-semi-bold: var(--font-weight-semibold);
+$p-bold: var(--font-weight-bold);
+$p-extra-bold: var(--font-weight-extrabold);
+$p-black: var(--font-weight-black);
