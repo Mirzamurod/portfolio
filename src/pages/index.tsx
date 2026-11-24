@@ -7,6 +7,8 @@ import { fetchProjects, fetchExperiences, fetchBlogs } from '@/libs/fetchData'
 const SITE_URL = 'https://mirzamurod.uz'
 const SITE_NAME = 'Mirzamurod'
 const SEO_TITLE = 'Mirzamurod — Full-Stack Web Developer'
+// Short text is kept on purpose: without it Telegram shows the image large, below the title
+const SEO_DESCRIPTION = 'React, Next.js, Node.js'
 const OG_IMAGE = `${SITE_URL}/images/og-image.png`
 
 export default function Home({ projects, experiences, blogs }: any) {
@@ -25,6 +27,7 @@ export default function Home({ projects, experiences, blogs }: any) {
         <link rel='icon' href='./images/logo.png' />
         <link rel='apple-touch-icon' href='./images/logo.png' />
         <meta name='theme-color' content='#000000' />
+        <meta name='description' content={SEO_DESCRIPTION} />
         <meta name='application-name' content={SITE_NAME} />
         <meta name='author' content={SITE_NAME} />
         <meta
@@ -35,6 +38,7 @@ export default function Home({ projects, experiences, blogs }: any) {
         {/* Open Graph */}
         <meta property='og:site_name' content={SITE_NAME} />
         <meta property='og:title' content={SEO_TITLE} />
+        <meta property='og:description' content={SEO_DESCRIPTION} />
         <meta property='og:url' content={`${SITE_URL}/`} />
         <meta property='og:type' content='website' />
         <meta property='og:locale' content='en_US' />
@@ -46,6 +50,7 @@ export default function Home({ projects, experiences, blogs }: any) {
         {/* Twitter — `summary` keeps the small square image next to the text */}
         <meta name='twitter:card' content='summary' />
         <meta name='twitter:title' content={SEO_TITLE} />
+        <meta name='twitter:description' content={SEO_DESCRIPTION} />
         <meta name='twitter:image' content={OG_IMAGE} />
         {/* Google Analytics Script - Performance optimization */}
         <Script
