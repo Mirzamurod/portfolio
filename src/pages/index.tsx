@@ -5,7 +5,9 @@ import Main from '@/components/Main'
 import { fetchProjects, fetchExperiences, fetchBlogs } from '@/libs/fetchData'
 
 const SITE_URL = 'https://mirzamurod.uz'
-const OG_IMAGE = `${SITE_URL}/images/logo.png`
+const SITE_NAME = 'Mirzamurod'
+const SEO_TITLE = 'Mirzamurod — Full-Stack Web Developer'
+const OG_IMAGE = `${SITE_URL}/images/og-image.png`
 
 export default function Home({ projects, experiences, blogs }: any) {
   useEffect(() => {
@@ -18,36 +20,32 @@ export default function Home({ projects, experiences, blogs }: any) {
   return (
     <>
       <Head>
-        <title>Mirzamurod</title>
+        <title>{SEO_TITLE}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='./images/logo.png' />
         <link rel='apple-touch-icon' href='./images/logo.png' />
         <meta name='theme-color' content='#000000' />
-        <meta
-          name='description'
-          content='Mirzamurod — Full-stack developer (React, Next.js, Node.js). Portfolio, experience, and contact.'
-        />
+        <meta name='application-name' content={SITE_NAME} />
+        <meta name='author' content={SITE_NAME} />
         <meta
           name='google-site-verification'
           content='DyKgwQ0Z-CK17Q6XsIDqVOad0KJq5bWLt0HwAQw9eFA'
         />
         <link rel='canonical' href={`${SITE_URL}/`} />
         {/* Open Graph */}
-        <meta property='og:title' content='Mirzamurod' />
-        <meta
-          property='og:description'
-          content='Full-stack developer building fast, maintainable web apps with React, Next.js, and Node.js.'
-        />
-        <meta property='og:image' content={OG_IMAGE} />
+        <meta property='og:site_name' content={SITE_NAME} />
+        <meta property='og:title' content={SEO_TITLE} />
         <meta property='og:url' content={`${SITE_URL}/`} />
         <meta property='og:type' content='website' />
-        {/* Twitter */}
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:title' content='Mirzamurod' />
-        <meta
-          name='twitter:description'
-          content='Full-stack developer building fast, maintainable web apps with React, Next.js, and Node.js.'
-        />
+        <meta property='og:locale' content='en_US' />
+        <meta property='og:image' content={OG_IMAGE} />
+        <meta property='og:image:width' content='512' />
+        <meta property='og:image:height' content='512' />
+        <meta property='og:image:type' content='image/png' />
+        <meta property='og:image:alt' content={SITE_NAME} />
+        {/* Twitter — `summary` keeps the small square image next to the text */}
+        <meta name='twitter:card' content='summary' />
+        <meta name='twitter:title' content={SEO_TITLE} />
         <meta name='twitter:image' content={OG_IMAGE} />
         {/* Google Analytics Script - Performance optimization */}
         <Script
